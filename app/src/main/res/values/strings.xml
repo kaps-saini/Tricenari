@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TriceNari</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit_your_profile">Edit your profile</string>
+    <string name="event_image">Event image</string>
+    <string name="options_for_this_screen">options for this screen</string>
+    <string name="back_key">back key</string>
+    <string name="spin_and_win">Spin and win</string>
+    <string name="spin_the_wheel_and_win_gurenteed_points">Spin the wheel and win \n daily guaranteed Jewels</string>
+    <string name="spin_now">Spin now</string>
+    <string name="answer_the_quizes_and_win_daily_guaranteed_jewels">Answer the quizzes and win \n daily guaranteed Jewels!!</string>
+    <string name="close_this_window">Close this window</string>
+    <string name="web_client_id">750676211936-079fgrg6n2nq2h6an49qnd3gjrarctao.apps.googleusercontent.com</string>
+</resources>

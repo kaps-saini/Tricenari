@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="340dp"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    tools:context=".presentation.fragments.PrizeWheelFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/prize_wheel_layout_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <ImageView
+            android:id="@+id/ivPrizeWheel"
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            android:src="@drawable/prize_wheel"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPrizeWheelRing"
+            app:layout_constraintEnd_toEndOf="@+id/ivPrizeWheelRing"
+            app:layout_constraintStart_toStartOf="@+id/ivPrizeWheelRing"
+            app:layout_constraintTop_toTopOf="@+id/ivPrizeWheelRing" />
+
+        <ImageView
+            android:id="@+id/ivPrizeWheelRing"
+            android:layout_width="210dp"
+            android:layout_height="210dp"
+            android:layout_marginTop="90dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/prize_wheel_ring"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView68"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/baloo"
+            android:text="@string/spin_and_win"
+            android:textColor="@color/maroon"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/ivPrizeWheel"
+            app:layout_constraintStart_toStartOf="@+id/ivPrizeWheel"
+            app:layout_constraintTop_toBottomOf="@+id/ivPrizeWheelRing" />
+
+        <TextView
+            android:id="@+id/textView69"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spin_the_wheel_and_win_gurenteed_points"
+            android:textAlignment="center"
+            android:textColor="@color/dark_gray"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView68"
+            app:layout_constraintStart_toStartOf="@+id/textView68"
+            app:layout_constraintTop_toBottomOf="@+id/textView68" />
+
+        <Button
+            android:id="@+id/btnSpin"
+            android:layout_width="241dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/maroon"
+            android:text="@string/spin_now"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/ivPrizeWheel"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toStartOf="@+id/ivPrizeWheel"
+            app:layout_constraintTop_toBottomOf="@+id/textView69" />
+
+        <TextView
+            android:id="@+id/tvSpinLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Spin left"
+            android:textAlignment="center"
+            android:textColor="@color/maroon"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Date"
+            android:textAlignment="center"
+            android:textColor="@color/maroon"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

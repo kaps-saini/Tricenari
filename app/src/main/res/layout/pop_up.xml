@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="330dp"
+    android:layout_height="330dp"
+    android:background="@drawable/prize_wheel_layout_background">
+
+    <TextView
+        android:id="@+id/tvWonJewels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You won 10 Jewels"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnSpinMore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieWin"
+        android:layout_width="210dp"
+        android:layout_height="210dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/celebration_popup" />
+
+    <Button
+        android:id="@+id/btnSpinMore"
+        android:layout_width="240dp"
+        android:layout_height="55dp"
+        android:backgroundTint="@color/maroon"
+        android:text="Spin more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lottieWin" />
+
+    <TextView
+        android:id="@+id/tvPlayQuiz"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:text="Play Quiz"
+        android:textColor="@color/maroon"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/btnSpinMore"
+        app:layout_constraintStart_toStartOf="@+id/btnSpinMore"
+        app:layout_constraintTop_toBottomOf="@+id/btnSpinMore" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

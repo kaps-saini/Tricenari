@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_auth"
+    app:startDestination="@id/signInFragment2">
+
+    <fragment
+        android:id="@+id/forgetPasswordFragment2"
+        android:name="com.mavalore.tricenari.presentation.fragments.ForgetPasswordFragment"
+        android:label="ForgetPasswordFragment" />
+    <fragment
+        android:id="@+id/registerFragment2"
+        android:name="com.mavalore.tricenari.presentation.fragments.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/signInFragment2"
+        android:name="com.mavalore.tricenari.presentation.fragments.SignInFragment"
+        android:label="SignInFragment" />
+</navigation>

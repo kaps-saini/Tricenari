@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "750676211936",
+    "project_id": "tricenari-77483",
+    "storage_bucket": "tricenari-77483.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750676211936:android:ad1ce0d228c185f14ab885",
+        "android_client_info": {
+          "package_name": "com.mavalore.tricenari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750676211936-079fgrg6n2nq2h6an49qnd3gjrarctao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYszIn8Tq5gbGvkGw74tIs5gsxE15By2I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750676211936-079fgrg6n2nq2h6an49qnd3gjrarctao.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

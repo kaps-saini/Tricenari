@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.DashboardFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_superWomenFragment"
+            app:destination="@id/superWomenFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_articleListFragement"
+            app:destination="@id/articleListFragement" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.EventDetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_event_details" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.EventFragment"
+        android:label="fragment_event"
+        tools:layout="@layout/fragment_event" />
+    <fragment
+        android:id="@+id/allBlogsFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.AllBlogsFragment"
+        android:label="fragment_all_blogs"
+        tools:layout="@layout/fragment_all_blogs" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventBookingFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.EventBookingFragment"
+        android:label="fragment_event_booking"
+        tools:layout="@layout/fragment_event_booking" >
+        <action
+            android:id="@+id/action_eventBookingFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/superWomenFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.SuperWomenFragment"
+        android:label="fragment_super_women"
+        tools:layout="@layout/fragment_super_women" >
+        <action
+            android:id="@+id/action_superWomenFragment_to_superWomenDetailFragment"
+            app:destination="@id/superWomenDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/superWomenDetailFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.SuperWomenDetailFragment"
+        android:label="fragment_super_women_detail"
+        tools:layout="@layout/fragment_super_women_detail" >
+        <argument
+            android:name="CurrentWomenData"
+            app:argType="com.mavalore.tricenari.domain.models.SuperWomenData" />
+        <argument
+            android:name="NextSuperWomen"
+            app:argType="com.mavalore.tricenari.domain.models.SuperWomenData"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/upcomingEventsFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.UpcomingEventsFragment"
+        android:label="fragment_upcoming_events"
+        tools:layout="@layout/fragment_upcoming_events" >
+        <action
+            android:id="@+id/action_upcomingEventsFragment_to_eventBookingFragment"
+            app:destination="@id/eventBookingFragment"
+            app:popUpTo="@id/upcomingEventsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinedEventsFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.JoinedEventsFragment"
+        android:label="fragment_joined_events"
+        tools:layout="@layout/fragment_joined_events" >
+        <action
+            android:id="@+id/action_joinedEventsFragment_to_eventBookingFragment"
+            app:destination="@id/eventBookingFragment"
+            app:popUpTo="@id/joinedEventsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" />
+    <fragment
+        android:id="@+id/prizeWheelFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.PrizeWheelFragment"
+        android:label="fragment_prize_wheel"
+        tools:layout="@layout/fragment_prize_wheel" />
+    <fragment
+        android:id="@+id/articleListFragement"
+        android:name="com.mavalore.tricenari.presentation.fragments.ArticleListFragment"
+        android:label="fragment_article_list_fragement"
+        tools:layout="@layout/fragment_article_list_fragement" >
+        <action
+            android:id="@+id/action_articleListFragement_to_articleDetailsFragment"
+            app:destination="@id/articleDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleDetailsFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.ArticleDetailsFragment"
+        android:label="fragment_article_details"
+        tools:layout="@layout/fragment_article_details" >
+        <argument
+            android:name="CurrentArticle"
+            app:argType="com.mavalore.tricenari.domain.models.ArticleData" />
+        <argument
+            android:name="NextArticle"
+            app:argType="com.mavalore.tricenari.domain.models.ArticleData"
+            app:nullable="true" />
+    </fragment>
+</navigation>
