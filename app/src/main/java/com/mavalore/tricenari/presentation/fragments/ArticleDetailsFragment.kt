@@ -1,7 +1,6 @@
 package com.mavalore.tricenari.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mavalore.tricenari.R
 import com.mavalore.tricenari.databinding.FragmentArticleDetailsBinding
-import com.mavalore.tricenari.domain.models.SingleArticleResponse
+import com.mavalore.tricenari.domain.models.article.SingleArticleResponse
 import com.mavalore.tricenari.helper.AlertDialogBox
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Resources
@@ -32,6 +31,9 @@ class ArticleDetailsFragment : Fragment() {
     @Inject
     lateinit var alertDialogBox: AlertDialogBox
 
+    private lateinit var title:String
+    private lateinit var articleLongTitle:String
+
     // get the arguments from the Registration fragment
     private val args : ArticleDetailsFragmentArgs by navArgs()
 
@@ -44,8 +46,13 @@ class ArticleDetailsFragment : Fragment() {
         _binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_article_details, container, false)
 
+        val currentId = args.CurrentArticle.id
+
+        var nextArticleId = currentId?.plus(1)
 
         args.CurrentArticle.id?.let { viewModel.getArticleById(it) }
+        binding.tvArticleLongTitle.text = args.CurrentArticle.longTitle
+        binding.tvTitleBlog.text = args.CurrentArticle.shortTitle.toString()
         viewModel.singleArticleResponse.observe(viewLifecycleOwner){response->
             when(response){
                 is Resources.Error -> errorResponse(response)
@@ -55,29 +62,58 @@ class ArticleDetailsFragment : Fragment() {
             }
         }
 
-        binding.tvArticleLongTitle.text = args.CurrentArticle.longTitle
-        binding.tvTitleBlog.text = args.CurrentArticle.shortTitle.toString()
-        if (args.NextArticle != null){
-            binding.nextArticle.visibility = View.GONE
+        viewModel.getNextArticleById(nextArticleId!!)
+        viewModel.nextSingleArticleResponse.observe(viewLifecycleOwner){response->
+            when(response){
+                is Resources.Error ->{
+                    if (response.message?.contains("No internet") == true){
+                        alertDialogBox.showNoInternetDialog(requireContext())
+                    }else{
+                        Toast.makeText(requireContext(),response.message.toString(), Toast.LENGTH_LONG).show()
+                    }
+                }
+                is Resources.Loading -> loadingResponse()
+                is Resources.Success ->{
+                    if (response.data?.data != null){
+                        response.data.data.let {
+                            binding.tvNextArticleTitle.text = it.longTitle.toString()
+                            Glide.with(requireContext())
+                                .load("https://www.tricenari.com/writeups/images/${nextArticleId}.png")
+                                .into(binding.ivNextArticle)
 
-            binding.tvNextArticleTitle.text = args.NextArticle?.longTitle.toString()
-            Glide.with(requireContext())
-                .load("https://www.tricenari.com/writeups/images/${args.NextArticle?.id}.png")
-                .into(binding.ivNextArticle)
-        }else{
-            binding.nextArticle.visibility = View.GONE
+                            title = it.shortTitle.toString()
+                            articleLongTitle = it.longTitle.toString()
+
+                            binding.scArticle.visibility = View.VISIBLE
+                            binding.shimmerArticle.visibility = View.GONE
+                            binding.shimmerArticle.stopShimmer()
+
+                        }
+                    }else{
+                        binding.nextArticle.visibility = View.GONE
+                    }
+
+                }
+                else -> {}
+            }
         }
+
+
+
 
         binding.ivBlogBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
         binding.nextArticle.setOnClickListener {
-            args.NextArticle?.id?.let { it1 -> viewModel.getArticleById(it1) }
-            binding.tvTitleBlog.text = args.NextArticle?.shortTitle.toString()
-            binding.tvArticleLongTitle.text = args.NextArticle?.longTitle.toString()
+            viewModel.getArticleById(nextArticleId)
+            nextArticleId++
+            viewModel.getNextArticleById(nextArticleId)
 
-            binding.nextArticle.visibility = View.GONE
+            binding.tvTitleBlog.text = title
+            binding.tvArticleLongTitle.text = articleLongTitle
+
+            binding.scArticle.smoothScrollTo(0,0)
         }
 
         return binding.root
@@ -85,6 +121,7 @@ class ArticleDetailsFragment : Fragment() {
 
 
     private fun successResponse(response: Resources.Success<SingleArticleResponse>) {
+
         val newContentTop = viewModel.removeTags(response.data?.data?.contentTop.toString())
         binding.tvContentTop.text = newContentTop
         val newContentMiddle = viewModel.removeTags(response.data?.data?.contentMiddle.toString())
@@ -98,14 +135,23 @@ class ArticleDetailsFragment : Fragment() {
         Glide.with(requireContext())
             .load("https://www.tricenari.com${imageUrl}")
             .into(binding.ivArticleImage)
-        Log.e("ImageUrl",response.data?.data?.imgurl.toString())
+
+        binding.scArticle.visibility = View.VISIBLE
+        binding.shimmerArticle.visibility = View.GONE
+        binding.shimmerArticle.stopShimmer()
+
     }
 
     private fun loadingResponse() {
-        Toast.makeText(requireContext(),"Loading..", Toast.LENGTH_SHORT).show()
+        binding.scArticle.visibility = View.GONE
+        binding.shimmerArticle.visibility = View.VISIBLE
+        binding.shimmerArticle.startShimmer()
     }
 
     private fun errorResponse(response: Resources.Error<SingleArticleResponse>) {
+        binding.scArticle.visibility = View.GONE
+        binding.shimmerArticle.visibility = View.VISIBLE
+        binding.shimmerArticle.startShimmer()
         if (response.message?.contains("No internet") == true){
             alertDialogBox.showNoInternetDialog(requireContext())
         }else{
@@ -115,6 +161,8 @@ class ArticleDetailsFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+
+        binding.shimmerArticle.stopShimmer()
 
         _binding = null
     }

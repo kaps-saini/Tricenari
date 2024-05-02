@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mavalore.tricenari.R
 import com.mavalore.tricenari.adapter.recyclerView.ArticleVerticleAdapter
 import com.mavalore.tricenari.databinding.FragmentAllBlogsBinding
-import com.mavalore.tricenari.domain.models.AllArticleResponse
+import com.mavalore.tricenari.domain.models.article.AllArticleResponse
 import com.mavalore.tricenari.helper.AlertDialogBox
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Resources

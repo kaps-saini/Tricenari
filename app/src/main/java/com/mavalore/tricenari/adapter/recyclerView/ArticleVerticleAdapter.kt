@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mavalore.tricenari.R
-import com.mavalore.tricenari.domain.models.ArticleData
+import com.mavalore.tricenari.domain.models.article.ArticleData
 
 class ArticleVerticleAdapter:RecyclerView.Adapter<ArticleVerticleAdapter.HorizontalViewHolder>() {
 
@@ -27,7 +27,7 @@ class ArticleVerticleAdapter:RecyclerView.Adapter<ArticleVerticleAdapter.Horizon
     }
 
     interface OnClickListener{
-        fun onClick(position: Int,dataItem:Long,articleData: ArticleData,nextArticle:ArticleData? )
+        fun onClick(position: Int, dataItem:Long, articleData: ArticleData, nextArticle: ArticleData? )
     }
 
     private var onItemClickListener:OnClickListener? = null

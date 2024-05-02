@@ -14,8 +14,8 @@ import com.mavalore.tricenari.R
 import com.mavalore.tricenari.adapter.recyclerView.LatestSuperWomenAdapter
 import com.mavalore.tricenari.adapter.recyclerView.PopularSuperWomenAdapter
 import com.mavalore.tricenari.databinding.FragmentSuperWomenBinding
-import com.mavalore.tricenari.domain.models.SuperWomenData
-import com.mavalore.tricenari.domain.models.SuperWomenResponse
+import com.mavalore.tricenari.domain.models.superwomen.SuperWomenData
+import com.mavalore.tricenari.domain.models.superwomen.SuperWomenResponse
 import com.mavalore.tricenari.helper.AlertDialogBox
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Const

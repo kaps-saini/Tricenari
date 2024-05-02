@@ -5,8 +5,11 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import com.google.android.material.snackbar.Snackbar
+import com.mavalore.tricenari.domain.interfaces.AllInterface
+import com.mavalore.tricenari.utils.Const
 
-class AlertDialogBox {
+class AlertDialogBox() {
+
 
     fun showNoInternetDialog(context: Context) {
         val alertDialogBuilder = AlertDialog.Builder(context)
@@ -14,9 +17,11 @@ class AlertDialogBox {
         alertDialogBuilder.setMessage("Please check your internet connection and try again.")
         alertDialogBuilder.setCancelable(false)
 
-        alertDialogBuilder.setPositiveButton("Retry") { _, _ ->
+        alertDialogBuilder.setPositiveButton("Retry") { dialog, _ ->
             // Perform the retry action here
             // You can add your retry logic here
+            dialog.dismiss()
+
         }
 
         alertDialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
@@ -75,4 +80,5 @@ class AlertDialogBox {
         val alertDialog = alertDialogBuilder.create()
         alertDialog.show()
     }
+
 }

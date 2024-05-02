@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.TriceNari" parent="Theme.Material3.DayNight.NoActionBar">
-         <item name="colorPrimary">@color/pink</item>
-        <item name="colorSecondary">@color/maroon</item>
+         <item name="colorPrimary">@color/maroon</item>
+        <item name="colorSecondary">@color/pink</item>
         <item name="colorAccent">@color/white</item>
 
         <item name="android:windowBackground">@color/white</item>
 
-        <item name="statusBarBackground">@color/light_pink</item>
+        <item name="statusBarBackground">@color/maroon</item>
     </style>
 
     <style name="Theme.TriceNari" parent="Base.Theme.TriceNari" />

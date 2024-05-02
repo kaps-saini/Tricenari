@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mavalore.tricenari.R
-import com.mavalore.tricenari.domain.models.ArticleData
+import com.mavalore.tricenari.domain.models.article.ArticleData
 
 class ArticleHorizontalAdapter:RecyclerView.Adapter<ArticleHorizontalAdapter.HorizontalViewHolder>() {
 

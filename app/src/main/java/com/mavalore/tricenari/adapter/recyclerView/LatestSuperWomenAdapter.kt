@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mavalore.tricenari.R
-import com.mavalore.tricenari.domain.models.ArticleData
-import com.mavalore.tricenari.domain.models.SuperWomenData
+import com.mavalore.tricenari.domain.models.superwomen.SuperWomenData
 
 class LatestSuperWomenAdapter:RecyclerView.Adapter<LatestSuperWomenAdapter.SuperWomenAdapter>(){
 

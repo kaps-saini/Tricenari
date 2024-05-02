@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.mavalore.tricenari.R
 import com.mavalore.tricenari.databinding.FragmentDashboardBinding
 import com.mavalore.tricenari.utils.Const
@@ -24,6 +25,11 @@ class DashboardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_dashboard, container, false)
+
+       val userImageUrl = Const.fireBaseAuth().currentUser?.photoUrl
+        Glide.with(requireContext())
+            .load(userImageUrl)
+            .into(binding.ivUserDashboardProfile)
 
         binding.cvEvents.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_eventFragment)

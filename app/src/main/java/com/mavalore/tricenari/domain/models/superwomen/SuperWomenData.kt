@@ -1,4 +1,4 @@
-package com.mavalore.tricenari.domain.models
+package com.mavalore.tricenari.domain.models.superwomen
 
 import java.io.Serializable
 

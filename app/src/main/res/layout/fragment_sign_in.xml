@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:text="Hello"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
@@ -105,68 +105,100 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="55dp"
-        android:background="@drawable/inputs_radius"
+        android:layout_height="60dp"
+        android:layout_marginBottom="65dp"
+        app:boxCornerRadiusTopStart="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxBackgroundColor="@color/white"
         android:hint="Password"
         android:textColorHint="@color/dark_gray"
-        app:boxStrokeColor="@color/white"
+        app:boxStrokeColor="@color/maroon"
+        app:placeholderText="Enter password"
         app:endIconMode="password_toggle"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignIn"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:placeholderTextColor="@color/white"
-        app:startIconDrawable="@drawable/ic_action_lock">
+        app:placeholderTextColor="@color/dark_gray"
+        app:startIconDrawable="@drawable/icon_lock">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAuthPassword"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="match_parent"
             android:inputType="textPassword"
+            android:maxLength="8"
             android:paddingStart="55dp"
-            android:paddingEnd="0dp"
+            android:paddingEnd="45dp"
             android:textColor="@color/black"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        app:boxCornerRadiusTopStart="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:startIconTint="@color/dark_gray"
         android:hint="Email"
-        app:placeholderTextColor="@color/white"
-        app:boxStrokeColor="@color/white"
+        app:startIconDrawable="@drawable/icon_email"
+        app:startIconMinSize="50dp"
+        app:boxBackgroundColor="@color/white"
+        app:boxStrokeColor="@color/maroon"
+        app:placeholderText="Enter email"
+        app:placeholderTextColor="@color/dark_gray"
         app:endIconMode="clear_text"
         android:textColorHint="@color/dark_gray"
-        android:background="@drawable/inputs_radius"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAuthEmail"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+            android:layout_height="match_parent"
+
             android:paddingStart="55dp"
-            android:paddingEnd="0dp"/>
+            android:paddingEnd="18dp"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnSignIn"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/pink"
-        android:text="Log In"
-        android:textSize="14sp"
+        android:alpha="0.4"
+        android:backgroundTint="@color/maroon"
+        android:text="Sign in"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvRegister"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
+
+    <ProgressBar
+        android:id="@+id/pbAuth"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/btnSignIn"
+        app:layout_constraintEnd_toEndOf="@+id/btnSignIn"
+        app:layout_constraintStart_toStartOf="@+id/btnSignIn"
+        app:layout_constraintTop_toTopOf="@+id/btnSignIn" />
 
     <TextView
         android:id="@+id/textView4"
@@ -175,7 +207,7 @@
         android:layout_marginEnd="32dp"
         android:text="Don't have an account?"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvRegister"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -189,8 +221,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="24dp"
         android:text="Sign Up"
-        android:textColor="@color/blue"
-        android:textSize="14sp"
+        android:textColor="@color/maroon"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintStart_toEndOf="@+id/textView4" />
@@ -203,7 +235,7 @@
         android:layout_marginTop="8dp"
         android:text="Forgot password?"
         android:textColor="@color/white"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
@@ -214,8 +246,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="Reset"
-        android:textColor="@color/blue"
-        android:textSize="14sp"
+        android:textColor="@color/maroon"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="@+id/textView5" />

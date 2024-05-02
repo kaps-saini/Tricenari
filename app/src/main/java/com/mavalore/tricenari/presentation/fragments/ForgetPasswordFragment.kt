@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.mavalore.tricenari.R
 import com.mavalore.tricenari.databinding.FragmentEventBinding
 import com.mavalore.tricenari.databinding.FragmentForgetPasswordBinding
@@ -20,6 +21,15 @@ class ForgetPasswordFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_forget_password, container, false)
+
+        binding.ivBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.tvSignupFromReset.setOnClickListener {
+            findNavController().navigate(R.id.action_forgetPasswordFragment2_to_registerFragment2)
+        }
+
 
         return binding.root
     }

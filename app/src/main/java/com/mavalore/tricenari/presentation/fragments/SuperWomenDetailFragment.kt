@@ -1,7 +1,6 @@
 package com.mavalore.tricenari.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mavalore.tricenari.R
-import com.mavalore.tricenari.adapter.recyclerView.LatestSuperWomenAdapter
-import com.mavalore.tricenari.adapter.recyclerView.PopularSuperWomenAdapter
-import com.mavalore.tricenari.databinding.FragmentEventBinding
-import com.mavalore.tricenari.databinding.FragmentSuperWomenBinding
 import com.mavalore.tricenari.databinding.FragmentSuperWomenDetailBinding
-import com.mavalore.tricenari.domain.models.SingleArticleResponse
-import com.mavalore.tricenari.domain.models.SingleSuperWomenResponse
+import com.mavalore.tricenari.domain.models.superwomen.SingleSuperWomenResponse
 import com.mavalore.tricenari.helper.AlertDialogBox
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Resources
@@ -41,6 +35,8 @@ class SuperWomenDetailFragment : Fragment() {
     private val args: SuperWomenDetailFragmentArgs by navArgs()
 
     private var womenDataId = 0
+    private lateinit var nextName:String
+    private lateinit var nextRole:String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,8 +45,10 @@ class SuperWomenDetailFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_super_women_detail, container, false)
 
-        womenDataId = args.CurrentWomenData.id
-        viewModel.getWomenDetailsById(womenDataId)
+        val currentWomenId = args.CurrentWomenData.id
+        var nextWomenId = currentWomenId.plus(1)
+
+        viewModel.getWomenDetailsById(currentWomenId)
         viewModel.singleSuperWomenResponse.observe(viewLifecycleOwner){response->
             when(response){
                 is Resources.Error -> errorResponse(response)
@@ -60,24 +58,61 @@ class SuperWomenDetailFragment : Fragment() {
             }
         }
 
+        viewModel.getNextWomenDetailsById(nextWomenId)
+        viewModel.nextSuperWomenInfo.observe(viewLifecycleOwner){response->
+            when(response){
+                is Resources.Error ->{
+                    if (response.message?.contains("No internet") == true){
+                        alertDialogBox.showNoInternetDialog(requireContext())
+                    }else{
+                        Toast.makeText(requireContext(),response.message.toString(), Toast.LENGTH_LONG).show()
+                    }
+                }
+                is Resources.Loading -> loadingResponse()
+                is Resources.Success ->{
+                    if (response.data?.data != null){
+                        response.data.data.let {
+                            binding.tvNextSWSummary.text = it.name
+                            Glide.with(requireContext())
+                                .load("https://www.tricenari.com/superwomenPages/pics/${it.id}.jpg")
+                                .into(binding.ivNextSWPic)
+
+                            nextName = it.name
+                            nextRole = it.role
+
+                            binding.scSuperWomen.visibility = View.VISIBLE
+                            binding.shimmerSuperWomen.visibility = View.GONE
+                            binding.shimmerSuperWomen.stopShimmer()
+
+                        }
+                    }else{
+                        binding.nextSwLayout.visibility = View.GONE
+                    }
+
+                }
+                else -> {}
+            }
+        }
+
+
         binding.ivSWBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        womenDataId += 1
-
-        if (args.NextSuperWomen != null){
-            viewModel.getNextWomenDetailsById(womenDataId)
-        }else{
-            binding.ivNextSWPic.visibility = View.INVISIBLE
-            binding.tvNextSWSummary.visibility = View.INVISIBLE
+        binding.ivShimmerBack.setOnClickListener {
+            findNavController().navigateUp()
         }
 
-        showNextWomenSummaryAndImageData()
         binding.tvNextSWSummary.setOnClickListener {
+            viewModel.getWomenDetailsById(nextWomenId)
+            nextWomenId++
+            viewModel.getNextWomenDetailsById(nextWomenId)
 
-            showNextWomenData()
-            showNextWomenSummaryAndImageData()
+            binding.tvSWName.text = nextName
+            binding.tvLivingPlace.text = nextRole
+
+            binding.scSuperWomen.smoothScrollTo(0,0)
+
         }
 
         return binding.root
@@ -98,10 +133,16 @@ class SuperWomenDetailFragment : Fragment() {
         Glide.with(requireContext())
             .load("https://www.tricenari.com/${imageUrl}")
             .into(binding.ivSWPic)
+
+        binding.scSuperWomen.visibility = View.VISIBLE
+        binding.shimmerSuperWomen.visibility = View.GONE
+        binding.shimmerSuperWomen.stopShimmer()
     }
 
     private fun loadingResponse() {
-        Toast.makeText(requireContext(),"Loading..", Toast.LENGTH_SHORT).show()
+        binding.scSuperWomen.visibility = View.GONE
+        binding.shimmerSuperWomen.visibility = View.VISIBLE
+        binding.shimmerSuperWomen.startShimmer()
     }
 
     private fun errorResponse(response: Resources.Error<SingleSuperWomenResponse>) {
@@ -112,47 +153,10 @@ class SuperWomenDetailFragment : Fragment() {
         }
     }
 
-    private fun showNextWomenData() {
-        viewModel.nextSingleSuperWomenResponse.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is Resources.Error -> errorResponse(response)
-                is Resources.Loading -> loadingResponse()
-                is Resources.Success -> {
-                    successResponse(response)
-                    womenDataId += 1
-                    viewModel.getNextWomenDetailsById(womenDataId)
-                }
-
-                else -> {}
-            }
-        }
-    }
-
-    private fun showNextWomenSummaryAndImageData(){
-        viewModel.nextSingleSuperWomenResponse.observe(viewLifecycleOwner){response->
-            when(response){
-                is Resources.Error -> {
-                    errorResponse(response)
-                    binding.tvNextSWSummary.visibility = View.INVISIBLE
-                    binding.ivNextSWPic.visibility = View.INVISIBLE
-                }
-                is Resources.Loading -> loadingResponse()
-                is Resources.Success -> {
-                    val nextSummary = response.data?.data?.summary.toString()
-                    binding.tvNextSWSummary.text = nextSummary
-                    val imageUrl = response.data?.data?.picurl?.trim()
-                    Glide.with(requireContext())
-                        .load("https://www.tricenari.com/${imageUrl}")
-                        .into(binding.ivSWPic)
-                }
-
-                else -> {}
-            }
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
+
+        binding.shimmerSuperWomen.stopShimmer()
 
         _binding = null
     }

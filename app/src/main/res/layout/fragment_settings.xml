@@ -73,14 +73,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circleImageView3" />
 
+
         <ImageView
             android:id="@+id/imageView11"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:padding="8dp"
-            android:src="@drawable/icon_user"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
+            android:padding="8dp"
+            android:src="@drawable/icon_user"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialDivider" />
 
@@ -88,14 +89,16 @@
             android:id="@+id/textView13"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="24dp"
+            android:drawablePadding="18dp"
             android:gravity="center_vertical"
             android:text="Profile"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView11"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageView11"
             app:layout_constraintTop_toTopOf="@+id/imageView11" />
 
@@ -104,32 +107,43 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/icon_help"
             android:padding="8dp"
+            android:src="@drawable/icon_help"
             app:layout_constraintEnd_toEndOf="@+id/imageView12"
             app:layout_constraintStart_toStartOf="@+id/imageView12"
             app:layout_constraintTop_toBottomOf="@+id/imageView12" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/logoutOption"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Log out"
-            android:textColor="@color/red"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView16"
-            app:layout_constraintStart_toStartOf="@+id/textView17"
-            app:layout_constraintTop_toTopOf="@+id/imageView16" />
-
-        <ImageView
-            android:id="@+id/imageView16"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/icon_logout"
-            android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView15"
+            android:layout_marginEnd="24dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/imageView15"
-            app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView15">
+
+            <ImageView
+                android:id="@+id/imageView16"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:importantForAccessibility="no"
+                android:padding="8dp"
+                android:src="@drawable/icon_logout"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log out"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/red"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/textView17"
@@ -147,8 +161,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/icon_invite"
             android:padding="8dp"
+            android:src="@drawable/icon_invite"
             app:layout_constraintEnd_toEndOf="@+id/imageView14"
             app:layout_constraintStart_toStartOf="@+id/imageView14"
             app:layout_constraintTop_toBottomOf="@+id/imageView14" />
@@ -169,8 +183,8 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/icon_policy"
             android:padding="8dp"
+            android:src="@drawable/icon_policy"
             app:layout_constraintEnd_toEndOf="@+id/imageView9"
             app:layout_constraintStart_toStartOf="@+id/imageView9"
             app:layout_constraintTop_toBottomOf="@+id/imageView9" />
@@ -190,9 +204,9 @@
             android:id="@+id/imageView12"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/icon_history"
-            android:padding="8dp"
             android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:src="@drawable/icon_history"
             app:layout_constraintEnd_toEndOf="@+id/imageView11"
             app:layout_constraintStart_toStartOf="@+id/imageView11"
             app:layout_constraintTop_toBottomOf="@+id/imageView11" />
@@ -211,12 +225,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="62dp"
+            android:gravity="center"
             android:text="From \n TriceNARI"
             android:textColor="@color/dark_gray"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="62dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

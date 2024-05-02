@@ -10,13 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.mavalore.tricenari.R
 import com.mavalore.tricenari.adapter.recyclerView.ArticleHorizontalAdapter
 import com.mavalore.tricenari.adapter.recyclerView.ArticleVerticleAdapter
 import com.mavalore.tricenari.databinding.FragmentArticleListFragementBinding
-import com.mavalore.tricenari.domain.models.AllArticleResponse
-import com.mavalore.tricenari.domain.models.ArticleData
+import com.mavalore.tricenari.domain.models.article.AllArticleResponse
+import com.mavalore.tricenari.domain.models.article.ArticleData
 import com.mavalore.tricenari.helper.AlertDialogBox
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Const
