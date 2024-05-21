@@ -1,6 +1,7 @@
 package com.mavalore.tricenari.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,10 +31,12 @@ class ArticleListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<TriceNariViewModel>()
-    private lateinit var articleAdapter: ArticleVerticleAdapter
+    private lateinit var verticalArticleAdapter: ArticleVerticleAdapter
     private lateinit var horizontalAdapter: ArticleHorizontalAdapter
     @Inject
     lateinit var alertDialogBox: AlertDialogBox
+
+    private lateinit var dataList:List<ArticleData>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +49,6 @@ class ArticleListFragment : Fragment() {
         setupRecyclerView()
         setupPopularRecyclerView()
 
-        viewModel.getAllArticle()
         viewModel.allArticleResponse.observe(viewLifecycleOwner){response->
             when(response){
                 is Resources.Error -> errorResponse(response)
@@ -54,8 +56,22 @@ class ArticleListFragment : Fragment() {
                 is Resources.Success -> successResponse(response)
             }
         }
+        viewModel.dynamicValuesResponse.observe(viewLifecycleOwner){response1->
+            when(response1){
+                is Resources.Error -> {
+                    Log.i("ArticleList",response1.message.toString())
+                }
+                is Resources.Loading -> loadingResponse()
+                is Resources.Success -> {
+                    response1.data?.data?.popularArticles?.let {ids->
+                        val idList: List<Long> = ids.map { it.toLong() }.toList()
+                        filterArticlesByIds(idList)
+                    }
+                }
+            }
+        }
 
-        articleAdapter.setOnItemClickListener(object : ArticleVerticleAdapter.OnClickListener{
+        verticalArticleAdapter.setOnItemClickListener(object : ArticleVerticleAdapter.OnClickListener{
             override fun onClick(
                 position: Int,
                 dataItem: Long,
@@ -105,10 +121,10 @@ class ArticleListFragment : Fragment() {
     }
 
     private fun successResponse(response: Resources.Success<AllArticleResponse>) {
-        articleAdapter.differ.submitList(response.data?.data)
+        verticalArticleAdapter.differ.submitList(response.data?.data?.sortedByDescending { it.id })
 
-        horizontalAdapter.differ.submitList(response.data?.data)
-
+        //horizontalAdapter.differ.submitList(response.data?.data)
+        dataList = response.data?.data as List<ArticleData>
     }
 
     private fun loadingResponse() {
@@ -124,9 +140,9 @@ class ArticleListFragment : Fragment() {
     }
 
     private fun setupRecyclerView(){
-        articleAdapter = ArticleVerticleAdapter()
+        verticalArticleAdapter = ArticleVerticleAdapter()
         binding.rvRecommended.apply {
-            this.adapter = articleAdapter
+            this.adapter = verticalArticleAdapter
             this.layoutManager = LinearLayoutManager(requireContext())
         }
     }
@@ -139,10 +155,24 @@ class ArticleListFragment : Fragment() {
         }
     }
 
+    // Call filterArticlesByIds with a list of IDs to filter
+    private fun filterArticlesByIds(idsToFilter: List<Long>) {
+        //horizontalAdapter.filterByIds(idsToFilter)
+        val filteredList = if (idsToFilter != null) {
+            dataList.filter { it.id?.toLong() in idsToFilter }
+        } else {
+            dataList
+        }
+            if (filteredList.isEmpty()) {
+            Toast.makeText(requireContext(), "Not found", Toast.LENGTH_SHORT).show()
+        } else {
+            horizontalAdapter.differ.submitList(filteredList)
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
-
         _binding = null
     }
 

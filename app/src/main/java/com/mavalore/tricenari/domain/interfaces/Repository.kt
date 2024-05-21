@@ -3,6 +3,8 @@ package com.mavalore.tricenari.domain.interfaces
 import com.mavalore.tricenari.domain.models.article.AllArticleResponse
 import com.mavalore.tricenari.domain.models.article.NextArticleInfo
 import com.mavalore.tricenari.domain.models.article.SingleArticleResponse
+import com.mavalore.tricenari.domain.models.contactUs.ContactUsResponse
+import com.mavalore.tricenari.domain.models.dynamicValues.DynamicValuesResponse
 import com.mavalore.tricenari.domain.models.superwomen.SingleSuperWomenResponse
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenInfo
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenResponse
@@ -32,5 +34,8 @@ interface Repository {
     suspend fun authUser(loginId:String,password:String):Response<AuthUserResponse>
 
     suspend fun requestOtp(emailId:String):Response<AddUserResponse>
+
+    suspend fun getDynamicValues():Response<DynamicValuesResponse>
+    suspend fun sendContactUsData(params: String):Response<ContactUsResponse>
 
 }

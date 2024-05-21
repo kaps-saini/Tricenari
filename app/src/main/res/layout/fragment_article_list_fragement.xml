@@ -124,7 +124,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Recommended for you"
+                    android:text="Latest"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/textView70"

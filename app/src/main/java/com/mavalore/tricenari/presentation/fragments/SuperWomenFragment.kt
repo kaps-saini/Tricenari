@@ -1,6 +1,7 @@
 package com.mavalore.tricenari.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,8 @@ class SuperWomenFragment : Fragment() {
     private lateinit var popularSuperWomenAdapter: PopularSuperWomenAdapter
     private lateinit var latestSuperWomenAdapter: LatestSuperWomenAdapter
 
+    private lateinit var listOfPopularSW: List<SuperWomenData>
+
     @Inject
     lateinit var alertDialogBox: AlertDialogBox
 
@@ -41,7 +44,8 @@ class SuperWomenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_super_women, container, false)
+        _binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_super_women, container, false)
 
         binding.ivSuperWomenBack.setOnClickListener {
             findNavController().navigateUp()
@@ -50,33 +54,50 @@ class SuperWomenFragment : Fragment() {
         setupPopularRecyclerView()
         setupLatestRecyclerView()
 
-        viewModel.getSuperWomen()
-        viewModel.superWomenResponse.observe(viewLifecycleOwner){response->
-            when(response){
+        viewModel.superWomenResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is Resources.Error -> errorResponse(response)
                 is Resources.Loading -> loadingResponse()
                 is Resources.Success -> successResponse(response)
             }
-
         }
 
-        popularSuperWomenAdapter.setOnItemClickListener(object : PopularSuperWomenAdapter.OnClickListener{
+        viewModel.dynamicValuesResponse.observe(viewLifecycleOwner) { response1 ->
+            when (response1) {
+                is Resources.Error -> {
+                    Log.i("ArticleList", response1.message.toString())
+                }
+
+                is Resources.Loading -> loadingResponse()
+                is Resources.Success -> {
+                    response1.data?.data?.popular_superwomen?.let { ids ->
+                        val idList: List<Long> = ids.map { it.id.toLong() }.toList()
+                        filterArticlesByIds(idList)
+                    }
+                }
+            }
+        }
+
+        popularSuperWomenAdapter.setOnItemClickListener(object :
+            PopularSuperWomenAdapter.OnClickListener {
             override fun onClick(
                 position: Int,
                 dataItem: Long,
                 currentWomen: SuperWomenData,
                 nextWomen: SuperWomenData?
             ) {
-                    val destination = SuperWomenFragmentDirections
-                        .actionSuperWomenFragmentToSuperWomenDetailFragment(currentWomen,
-                            nextWomen
-                        )
+                val destination = SuperWomenFragmentDirections
+                    .actionSuperWomenFragmentToSuperWomenDetailFragment(
+                        currentWomen,
+                        nextWomen
+                    )
                 findNavController().navigate(destination)
             }
 
         })
 
-        latestSuperWomenAdapter.setOnItemClickListener(object : LatestSuperWomenAdapter.OnClickListener{
+        latestSuperWomenAdapter.setOnItemClickListener(object :
+            LatestSuperWomenAdapter.OnClickListener {
             override fun onClick(
                 position: Int,
                 dataItem: Long,
@@ -85,16 +106,19 @@ class SuperWomenFragment : Fragment() {
             ) {
                 val destination =
                     SuperWomenFragmentDirections
-                        .actionSuperWomenFragmentToSuperWomenDetailFragment(articleData, nextArticle)
-                    findNavController().navigate(destination)
+                        .actionSuperWomenFragmentToSuperWomenDetailFragment(
+                            articleData,
+                            nextArticle
+                        )
+                findNavController().navigate(destination)
 
             }
 
         })
 
-        if (Const.superWomenAdIsVisible){
+        if (Const.superWomenAdIsVisible) {
             binding.cvSuperWomenAd.visibility = View.VISIBLE
-        }else{
+        } else {
             binding.cvSuperWomenAd.visibility = View.GONE
         }
 
@@ -102,34 +126,28 @@ class SuperWomenFragment : Fragment() {
             Const.superWomenAdIsVisible = false
             binding.cvSuperWomenAd.visibility = View.GONE
         }
-
         return binding.root
     }
 
     private fun successResponse(response: Resources.Success<SuperWomenResponse>) {
+        listOfPopularSW = response.data?.data as List<SuperWomenData>
 
-        val popularList = response.data?.data
-        if (popularList != null) {
-            popularSuperWomenAdapter.submitList(popularList)
-        }
-
-        latestSuperWomenAdapter.differ.submitList(response.data?.data)
-
+        latestSuperWomenAdapter.differ.submitList(response.data?.data?.sortedByDescending { it.id })
     }
 
     private fun loadingResponse() {
-        Toast.makeText(requireContext(),"Loading..", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Loading..", Toast.LENGTH_SHORT).show()
     }
 
     private fun errorResponse(response: Resources.Error<SuperWomenResponse>) {
-        if (response.message?.contains("No internet") == true){
+        if (response.message?.contains("No internet") == true) {
             alertDialogBox.showNoInternetDialog(requireContext())
-        }else{
-            Toast.makeText(requireContext(),response.message.toString(), Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(requireContext(), response.message.toString(), Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun setupLatestRecyclerView(){
+    private fun setupLatestRecyclerView() {
         latestSuperWomenAdapter = LatestSuperWomenAdapter()
         binding.rvLatestSuperWomen.apply {
             this.adapter = latestSuperWomenAdapter
@@ -137,12 +155,29 @@ class SuperWomenFragment : Fragment() {
         }
     }
 
-    private fun setupPopularRecyclerView(){
+    private fun setupPopularRecyclerView() {
         popularSuperWomenAdapter = PopularSuperWomenAdapter()
         binding.rvPopularSuperWomen.apply {
             this.adapter = popularSuperWomenAdapter
-            this.layoutManager = LinearLayoutManager(requireContext(),
-                LinearLayoutManager.HORIZONTAL,false)
+            this.layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL, false
+            )
+        }
+    }
+
+    // Call filterArticlesByIds with a list of IDs to filter
+    private fun filterArticlesByIds(idsToFilter: List<Long>) {
+        //horizontalAdapter.filterByIds(idsToFilter)
+        val filteredList = if (idsToFilter != null) {
+            listOfPopularSW.filter { it.id.toLong() in idsToFilter }
+        } else {
+            listOfPopularSW
+        }
+        if (filteredList.isEmpty()) {
+            Toast.makeText(requireContext(), "Not found", Toast.LENGTH_SHORT).show()
+        } else {
+            popularSuperWomenAdapter.differ.submitList(filteredList)
         }
     }
 

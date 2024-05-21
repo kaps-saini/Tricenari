@@ -6,7 +6,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
     tools:context=".presentation.fragments.RegisterFragment">
 
     <ImageView
@@ -15,8 +14,8 @@
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:padding="8dp"
-        android:src="@drawable/ic_action_back"
+        android:padding="12dp"
+        android:src="@drawable/ic_action_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:importantForAccessibility="no" />
@@ -28,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="38dp"
         android:text="Sign up yourself"
-        android:textColor="@color/white"
+        android:textColor="@color/maroon"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tilUserName"
@@ -54,23 +53,23 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:boxCornerRadiusTopStart="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:startIconTint="@color/dark_gray"
-        app:boxBackgroundColor="@color/white"
+        android:layout_marginBottom="16dp"
         android:hint="Email/Mobile No."
         android:textColorHint="@color/dark_gray"
+        app:boxBackgroundColor="@color/light_pink"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
         app:boxStrokeColor="@color/maroon"
         app:endIconMode="clear_text"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/tilOtp"
+        app:layout_constraintBottom_toTopOf="@+id/tilPassword"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:placeholderTextColor="@color/dark_gray"
         app:placeholderText="Enter email"
-        app:startIconDrawable="@drawable/icon_email">
+        app:placeholderTextColor="@color/dark_gray"
+        app:startIconDrawable="@drawable/icon_email"
+        app:startIconTint="@color/dark_gray">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUserEmail"
@@ -90,11 +89,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:boxCornerRadiusTopStart="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxBackgroundColor="@color/light_pink"
         android:hint="Password"
         android:textColorHint="@color/dark_gray"
         app:boxStrokeColor="@color/maroon"
@@ -125,11 +124,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
-        app:boxCornerRadiusTopStart="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxBackgroundColor="@color/light_pink"
         android:hint="Confirm Password"
         android:textColorHint="@color/dark_gray"
         app:boxStrokeColor="@color/maroon"
@@ -159,12 +158,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:boxCornerRadiusTopStart="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusTopStart="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
         app:startIconTint="@color/dark_gray"
-        app:boxBackgroundColor="@color/white"
+        app:boxBackgroundColor="@color/light_pink"
         android:hint="User Name"
         android:textColorHint="@color/dark_gray"
         app:boxStrokeColor="@color/maroon"
@@ -183,42 +182,6 @@
             android:layout_height="match_parent"
             android:maxLength="10"
             android:maxLines="1"
-            android:paddingStart="55dp"
-            android:paddingEnd="0dp"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilOtp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="OTP"
-        app:boxCornerRadiusTopStart="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:startIconTint="@color/dark_gray"
-        app:boxBackgroundColor="@color/white"
-        android:textColorHint="@color/dark_gray"
-        app:boxStrokeColor="@color/maroon"
-        app:endIconMode="clear_text"
-        android:layout_marginBottom="16dp"
-        app:startIconMinSize="61dp"
-        app:layout_constraintBottom_toTopOf="@+id/tilPassword"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:placeholderText="Enter OTP"
-        app:placeholderTextColor="@color/dark_gray"
-        app:startIconDrawable="@drawable/icon_otp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="number"
-            android:maxLength="6"
             android:paddingStart="55dp"
             android:paddingEnd="0dp"
             android:textColor="@color/black"
@@ -252,15 +215,13 @@
         app:layout_constraintStart_toStartOf="@+id/btnSignup"
         app:layout_constraintTop_toTopOf="@+id/btnSignup" />
 
-
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:text="Already have an account?"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tvSignInFromSignup"
@@ -315,7 +276,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/tilEmail"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/tilEmail" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

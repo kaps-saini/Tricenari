@@ -2,13 +2,20 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.TriceNari" parent="Theme.Material3.DayNight.NoActionBar">
          <item name="colorPrimary">@color/maroon</item>
+        <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/pink</item>
-        <item name="colorAccent">@color/white</item>
+        <item name="colorOnSecondary">@color/dark_gray</item>
+        <item name="colorAccent">@color/maroon</item>
 
         <item name="android:windowBackground">@color/white</item>
 
-        <item name="statusBarBackground">@color/maroon</item>
     </style>
 
     <style name="Theme.TriceNari" parent="Base.Theme.TriceNari" />
+
+    <style name="Splash.Screen" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="background">@drawable/splash_image</item>
+    </style>
 </resources>

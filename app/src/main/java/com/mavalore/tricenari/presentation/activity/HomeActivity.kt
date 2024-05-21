@@ -18,6 +18,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_TriceNari)
         setContentView(R.layout.activity_home)
 
         btmNav = findViewById(R.id.btmNavHome)

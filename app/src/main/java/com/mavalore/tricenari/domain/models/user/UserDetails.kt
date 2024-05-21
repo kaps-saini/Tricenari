@@ -1,18 +1,18 @@
 package com.mavalore.tricenari.domain.models.user
 
 data class UserDetails(
-    val IDverified: Any,
-    val city: Any,
-    val dob: Any,
+    val IDverified: Int,
+    val city: String?,
+    val dob: String?,
     val email: String,
-    val gender: Any,
+    val gender: String?,
     val id: Int,
-    val interests: Any,
-    val jewels: Any,
+    val interests: String?,
+    val jewels: Int?,
     val loggedin: Boolean,
-    val mobile: Any,
+    val mobile: String?,
     val name: String,
     val otpVerified: Int,
-    val proceed: Any,
-    val provider: Any
+    val proceed: Int,
+    val provider: String
 )

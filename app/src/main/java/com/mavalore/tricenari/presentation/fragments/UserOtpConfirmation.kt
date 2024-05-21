@@ -1,4 +1,4 @@
-package com.mavalore.tricenari
+package com.mavalore.tricenari.presentation.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,12 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.mavalore.tricenari.databinding.FragmentRegisterBinding
+import androidx.navigation.ui.navigateUp
+import com.mavalore.tricenari.R
 import com.mavalore.tricenari.databinding.FragmentUserOtpConfirmationBinding
 import com.mavalore.tricenari.presentation.activity.HomeActivity
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
@@ -40,7 +40,8 @@ class UserOtpConfirmation : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_user_otp_confirmation, container, false)
+        _binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_user_otp_confirmation, container, false)
 
         viewModel.initSharedPreferences(requireContext())
 
@@ -108,7 +109,6 @@ class UserOtpConfirmation : Fragment() {
 
         })
 
-
         binding.btnVerify.setOnClickListener {
             if (binding.etOtp.text?.isNotEmpty() == true){
                 binding.btnVerify.visibility = View.INVISIBLE
@@ -116,7 +116,7 @@ class UserOtpConfirmation : Fragment() {
             }
             val inputOtp = binding.etOtp.text.toString().toInt()
             if (sendOtp == inputOtp){
-                val params = viewModel.generateEncodedParamsToUpdateUser(null,null,null,1)
+                val params = viewModel.generateEncodedParamsToUpdateUser(otpVerified = 1)
                 viewModel.saveUserLoginDataValue(userId)
                 viewModel.saveUserLoginStatus(true)
                 viewModel.updateUser(params,userId)
@@ -125,9 +125,10 @@ class UserOtpConfirmation : Fragment() {
                 binding.pbVerify.visibility = View.INVISIBLE
 
                 Toast.makeText(requireContext(),"Email verified successfully",Toast.LENGTH_SHORT).show()
-                startActivity(Intent(activity,HomeActivity::class.java))
-                Intent.FLAG_ACTIVITY_CLEAR_TOP
-                Intent.FLAG_ACTIVITY_NEW_TASK
+//                startActivity(Intent(activity,HomeActivity::class.java))
+//                Intent.FLAG_ACTIVITY_CLEAR_TOP
+//                Intent.FLAG_ACTIVITY_NEW_TASK
+                findNavController().navigate(R.id.action_userOtpConfirmation2_to_setup_profile)
             }else{
                 Log.e("otp",inputOtp.toString())
                 Log.e("otp",sendOtp.toString())

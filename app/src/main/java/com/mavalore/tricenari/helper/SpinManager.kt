@@ -3,6 +3,10 @@ package com.mavalore.tricenari.helper
 import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
 class SpinManager(context: Context) {

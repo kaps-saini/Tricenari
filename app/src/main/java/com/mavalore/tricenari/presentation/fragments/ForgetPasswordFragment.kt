@@ -27,9 +27,8 @@ class ForgetPasswordFragment : Fragment() {
         }
 
         binding.tvSignupFromReset.setOnClickListener {
-            findNavController().navigate(R.id.action_forgetPasswordFragment2_to_registerFragment2)
+            findNavController().navigate(R.id.action_forgetPasswordFragment_to_registerFragment)
         }
-
 
         return binding.root
     }

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
     <color name="light_black">#1D1B20</color>
     <color name="white">#FFFFFFFF</color>
     <color name="pink">#EA7A9D</color>
-    <color name="light_pink">#2BEA7A9D</color>
+    <color name="light_pink">#0DEA7A9D</color>
     <color name="blue">#3F51B5</color>
     <color name="sky_blue">#408EC6</color>
     <color name="maroon">#8D2541</color>

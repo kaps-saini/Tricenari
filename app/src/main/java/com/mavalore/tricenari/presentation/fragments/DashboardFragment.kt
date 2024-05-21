@@ -4,20 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.RenderProcessGoneDetail
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.mavalore.tricenari.R
 import com.mavalore.tricenari.databinding.FragmentDashboardBinding
+import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Const
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel by viewModels<TriceNariViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,10 +31,9 @@ class DashboardFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_dashboard, container, false)
 
-       val userImageUrl = Const.fireBaseAuth().currentUser?.photoUrl
-        Glide.with(requireContext())
-            .load(userImageUrl)
-            .into(binding.ivUserDashboardProfile)
+        viewModel.initAuthSharedPreferences(requireContext())
+        val userData = viewModel.getUserData()
+        binding.tvUserName.text = userData?.name.toString()
 
         binding.cvEvents.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_eventFragment)
@@ -56,7 +60,6 @@ class DashboardFragment : Fragment() {
             findNavController().navigate(R.id.action_dashboardFragment_to_profileFragment)
         }
 
-
         if (Const.dashboardAdIsVisible){
             binding.cvDashboardAd.visibility = View.VISIBLE
         }else{
@@ -81,5 +84,13 @@ class DashboardFragment : Fragment() {
         _binding = null
     }
 
+    override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = viewModel.getUserLoginStatus()
+        if (!currentUser) {
+            findNavController().navigate(R.id.action_dashboardFragment_to_signInFragment)
+        }
+    }
 
 }

@@ -5,6 +5,8 @@ import com.mavalore.tricenari.domain.interfaces.Repository
 import com.mavalore.tricenari.domain.models.article.AllArticleResponse
 import com.mavalore.tricenari.domain.models.article.NextArticleInfo
 import com.mavalore.tricenari.domain.models.article.SingleArticleResponse
+import com.mavalore.tricenari.domain.models.contactUs.ContactUsResponse
+import com.mavalore.tricenari.domain.models.dynamicValues.DynamicValuesResponse
 import com.mavalore.tricenari.domain.models.superwomen.SingleSuperWomenResponse
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenInfo
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenResponse
@@ -43,4 +45,10 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun requestOtp(emailId: String): Response<AddUserResponse> =
         triceNariApi.requestOtp(emailId)
+
+    override suspend fun getDynamicValues(): Response<DynamicValuesResponse> =
+        triceNariApi.getDynamicValues()
+
+    override suspend fun sendContactUsData(params: String): Response<ContactUsResponse> =
+        triceNariApi.contactUs(params)
 }

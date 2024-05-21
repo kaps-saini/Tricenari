@@ -38,7 +38,6 @@ class ArticleHorizontalAdapter:RecyclerView.Adapter<ArticleHorizontalAdapter.Hor
         override fun areItemsTheSame(oldItem: ArticleData, newItem: ArticleData): Boolean {
             return oldItem.id == newItem.id
         }
-
         override fun areContentsTheSame(oldItem: ArticleData, newItem: ArticleData): Boolean {
             return oldItem == newItem
         }

@@ -42,7 +42,7 @@ class RegisterFragment : Fragment() {
         }
 
         binding.tvSignInFromSignup.setOnClickListener {
-            findNavController().navigate(R.id.action_registerFragment2_to_signInFragment2)
+            findNavController().navigate(R.id.action_registerFragment_to_signInFragment)
         }
 
         binding.etUserName.addTextChangedListener(object :TextWatcher{
@@ -110,38 +110,51 @@ class RegisterFragment : Fragment() {
             validateInputsAndSignUp()
         }
 
-        viewModel.addUserResponse.observe(viewLifecycleOwner){response->
-            when(response){
+        viewModel.addUserResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is Resources.Error -> {
                     binding.btnSignup.isClickable = true
                     binding.btnSignup.visibility = View.VISIBLE
                     binding.pbSignup.visibility = View.INVISIBLE
-                    if (response.message?.contains("No Internet") == true){
-                      //  noInternetAlertDialogBox.showNoInternetDialog(requireContext())
-                    }else{
-                        Toast.makeText(requireContext(),response.message.toString(),Toast.LENGTH_LONG).show()
+                    if (response.message?.contains("No Internet") == true) {
+                        //  noInternetAlertDialogBox.showNoInternetDialog(requireContext())
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            response.message.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
+
                 is Resources.Loading -> {
                     binding.btnSignup.isClickable = false
                     binding.btnSignup.visibility = View.INVISIBLE
                     binding.pbSignup.visibility = View.VISIBLE
                 }
-                is Resources.Success ->{
+
+                is Resources.Success -> {
                     binding.btnSignup.isClickable = true
                     binding.btnSignup.visibility = View.VISIBLE
                     binding.pbSignup.visibility = View.INVISIBLE
                     response.data.let {
-                        if (it?.status_message?.contains("Success") == true){
-                            Toast.makeText(requireContext(),"OTP send successfully",Toast.LENGTH_SHORT).show()
-                            findNavController().navigate(R.id.action_registerFragment2_to_userOtpConfirmation)
-                        }else{
-                            Toast.makeText(requireContext(),it?.status.toString(),Toast.LENGTH_SHORT).show()
+                        if (it?.status_message?.contains("Success") == true) {
+                            Toast.makeText(
+                                requireContext(),
+                                "OTP send successfully",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            findNavController().navigate(R.id.action_registerFragment_to_userOtpConfirmation2)
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                it?.status.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
             }
-
         }
 
         return binding.root

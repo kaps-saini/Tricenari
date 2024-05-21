@@ -5,13 +5,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserOtpConfirmation">
+    tools:context=".presentation.fragments.UserOtpConfirmation">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -27,7 +26,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:padding="12dp"
-            android:src="@drawable/icon_back_arrow_white"
+            android:src="@drawable/ic_action_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="back to previous" />
@@ -39,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Verify your email"
-            android:textColor="@color/white"
+            android:textColor="@color/maroon"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -65,12 +64,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="OTP"
-            app:boxCornerRadiusTopStart="30dp"
-            app:boxCornerRadiusBottomStart="30dp"
-            app:boxCornerRadiusBottomEnd="30dp"
-            app:boxCornerRadiusTopEnd="30dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
             app:startIconTint="@color/dark_gray"
-            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundColor="@color/light_pink"
             android:textColorHint="@color/dark_gray"
             app:placeholderText="Enter OTP"
             app:boxStrokeColor="@color/maroon"
@@ -104,8 +103,8 @@
             android:text="Verify"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:alpha="0.4"
             android:layout_marginTop="16dp"
+            android:alpha="0.4"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideline"

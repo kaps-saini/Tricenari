@@ -69,7 +69,6 @@ class PrizeWheelFragment : DialogFragment() {
         setCurrentDate()
         viewModel.initSharedPreferences(requireContext())
 
-
         viewModel.getSpinLeft()
         viewModel.spinLeft.observe(this){
             tvSpinLeft.text = "Spin left - ${it}"

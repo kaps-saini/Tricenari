@@ -12,12 +12,15 @@ import com.mavalore.tricenari.domain.interfaces.Repository
 import com.mavalore.tricenari.domain.models.article.AllArticleResponse
 import com.mavalore.tricenari.domain.models.article.NextArticleInfo
 import com.mavalore.tricenari.domain.models.article.SingleArticleResponse
+import com.mavalore.tricenari.domain.models.contactUs.ContactUsResponse
+import com.mavalore.tricenari.domain.models.dynamicValues.DynamicValuesResponse
 import com.mavalore.tricenari.domain.models.superwomen.SingleSuperWomenResponse
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenInfo
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenResponse
 import com.mavalore.tricenari.domain.models.user.AddUserResponse
 import com.mavalore.tricenari.domain.models.user.AuthUserResponse
 import com.mavalore.tricenari.domain.models.user.UpdateUserResponse
+import com.mavalore.tricenari.domain.models.user.UserDetails
 import com.mavalore.tricenari.helper.CheckInternetConnection
 import com.mavalore.tricenari.utils.Resources
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -35,6 +38,8 @@ class TriceNariViewModel @Inject constructor(
 
     private lateinit var sharedPreferences: SharedPreferences
     private val spinCountKey = "spinCount"
+
+    private lateinit var loginSharedPreferences: SharedPreferences
 
     private val _spinLeft:MutableLiveData<Int> = MutableLiveData()
     val spinLeft:LiveData<Int> get() = _spinLeft
@@ -64,15 +69,34 @@ class TriceNariViewModel @Inject constructor(
     val authUserResponse:LiveData<Resources<AuthUserResponse>> get() = _authUserResponse
 
     private var _updateUserResponse:MutableLiveData<Resources<UpdateUserResponse>> = MutableLiveData()
-    val updateUserResponse:LiveData<Resources<UpdateUserResponse>> get() = _updateUserResponse
+    val updateUserResponse: LiveData<Resources<UpdateUserResponse>> get() = _updateUserResponse
 
-    private var _otpResponse:MutableLiveData<Resources<AddUserResponse>> = MutableLiveData()
-    val otpResponse:LiveData<Resources<AddUserResponse>> get() = _otpResponse
+    private var _otpResponse: MutableLiveData<Resources<AddUserResponse>> = MutableLiveData()
+    val otpResponse: LiveData<Resources<AddUserResponse>> get() = _otpResponse
 
+    private var _dynamicValuesResponse: MutableLiveData<Resources<DynamicValuesResponse>> =
+        MutableLiveData()
+    val dynamicValuesResponse: LiveData<Resources<DynamicValuesResponse>> get() = _dynamicValuesResponse
+
+    private var _contactUsResponse: MutableLiveData<Resources<ContactUsResponse>> =
+        MutableLiveData()
+    val contactUsResponse: LiveData<Resources<ContactUsResponse>> get() = _contactUsResponse
+
+
+    init {
+        getSuperWomen()
+        getDynamicValues()
+        getAllArticle()
+    }
 
     // Initialize SharedPreferences in your ViewModel
     fun initSharedPreferences(context: Context) {
         sharedPreferences = context.getSharedPreferences("SpinPreferences", Context.MODE_PRIVATE)
+    }
+
+    // Initialize SharedPreferences in your ViewModel
+    fun initAuthSharedPreferences(context: Context) {
+        loginSharedPreferences = context.getSharedPreferences("LoginPreferences", Context.MODE_PRIVATE)
     }
 
     fun spin(context: Context) {
@@ -92,29 +116,82 @@ class TriceNariViewModel @Inject constructor(
 
     // Method to save user login status
     fun saveUserLoginStatus(isLoggedIn: Boolean) {
-        val editor = sharedPreferences.edit()
+        val editor = loginSharedPreferences.edit()
         editor.putBoolean("is_logged_in", isLoggedIn)
         editor.apply()
     }
 
     fun saveUserLoginDataValue(dataValue: Int) {
-        val editor = sharedPreferences.edit()
+        val editor = loginSharedPreferences.edit()
         editor.putInt("user_data_value", dataValue)
         editor.apply()
     }
 
     // Method to retrieve user login status
     fun getUserLoginStatus(): Boolean {
-        return sharedPreferences.getBoolean("is_logged_in", false)
+        return loginSharedPreferences.getBoolean("is_logged_in", false)
     }
 
-    fun getUserLoginDataValue(): Int {
-        return sharedPreferences.getInt("user_data_value", 0)
+    fun saveUserData(
+        id: Int? = null,
+        name: String? = null,
+        emailId: String? = null,
+        mobile: String? = null,
+        provider: String? = null,
+        city: String? = null,
+        dob: String? = null,
+        gender: String? = null,
+        interest: String? = null,
+        jewels: Int? = null,
+        otpVerified: Int? = null,
+        idVerified: Int? = null,
+        proceed: Int? = null,
+        loggedIn: Boolean? = null
+    ) {
+        val editor = loginSharedPreferences.edit()
+
+        id?.let { editor.putInt("user_id", it) }
+        name?.let { editor.putString("user_name", it) }
+        emailId?.let { editor.putString("email_id", it) }
+        mobile?.let { editor.putString("mobile", it) }
+        provider?.let { editor.putString("provider", it) }
+        city?.let { editor.putString("city", it) }
+        dob?.let { editor.putString("dob", it) }
+        gender?.let { editor.putString("gender", it) }
+        interest?.let { editor.putString("interest", it) }
+        jewels?.let { editor.putInt("jewels", it) }
+        otpVerified?.let { editor.putInt("otp_verified", it) }
+        idVerified?.let { editor.putInt("id_verified", it) }
+        proceed?.let { editor.putInt("proceed", it) }
+        loggedIn?.let { editor.putBoolean("loggedIn", it) }
+
+        editor.apply()
+    }
+
+    fun getUserData(): UserDetails {
+        val userId = loginSharedPreferences.getInt("user_id",0)
+        val userName = loginSharedPreferences.getString("user_name","")
+        val emailId = loginSharedPreferences.getString("email_id","")
+        val mobile = loginSharedPreferences.getString("mobile","")
+        val provider = loginSharedPreferences.getString("provider","")
+        val city = loginSharedPreferences.getString("city","")
+        val dob = loginSharedPreferences.getString("dob","")
+        val gender = loginSharedPreferences.getString("gender","")
+        val interest = loginSharedPreferences.getString("interest","")
+        val jewels = loginSharedPreferences.getInt("jewels",0)
+        val otpVerified = loginSharedPreferences.getInt("otp_verified",0)
+        val idVerified = loginSharedPreferences.getInt("id_verified",0)
+        val proceed = loginSharedPreferences.getInt("proceed",0)
+        val loggedIn = loginSharedPreferences.getBoolean("logged_in",false)
+        return UserDetails(
+                idVerified,city,dob, emailId!!,gender,userId,interest,jewels,loggedIn, mobile,
+                userName!!,otpVerified,proceed, provider.toString()
+            )
     }
 
     // Method to clear SharedPreferences
-    fun clearSharedPreferences() {
-        val editor = sharedPreferences.edit()
+    fun clearAuthSharedPreferences() {
+        val editor = loginSharedPreferences.edit()
         editor.clear()
         editor.apply()
     }
@@ -130,7 +207,7 @@ class TriceNariViewModel @Inject constructor(
             .replace("</ul>", " ")
     }
 
-    fun getAllArticle() = viewModelScope.launch {
+    private fun getAllArticle() = viewModelScope.launch {
         handleNetworkSafeAllArticleResponse()
     }
 
@@ -168,6 +245,14 @@ class TriceNariViewModel @Inject constructor(
 
     fun requestOtp(emailId: String) = viewModelScope.launch {
         handleNetworkRequestOtpResponse(emailId)
+    }
+
+    private fun getDynamicValues() = viewModelScope.launch {
+        handleNetworkSafeDynamicValuesResponse()
+    }
+
+    fun sendContactUsData(params: String) = viewModelScope.launch {
+        handleNetworkSafeContactUsResponse(params)
     }
 
     private suspend fun handleNetworkSafeAllArticleResponse(){
@@ -429,7 +514,6 @@ class TriceNariViewModel @Inject constructor(
                 else -> _otpResponse.value = Resources.Error(t.message.toString())
             }
         }
-
     }
 
     private fun handleOtpResponse(response: Response<AddUserResponse>): Resources<AddUserResponse> {
@@ -441,12 +525,98 @@ class TriceNariViewModel @Inject constructor(
         return Resources.Error(response.message().toString())
     }
 
-    fun generateEncodedParamsToUpdateUser(loginId: String?, jewels: Int?, dob: String?,otpVerified:Int?): String {
-        val params = mutableListOf<String>()
-        loginId?.let { params.add("loginid=$it") }
-        jewels?.let { params.add("jewels=$it") }
-        dob?.let { params.add("dob=$it") }
-        otpVerified?.let { params.add("otpVerified=$it") }
+    private suspend fun handleNetworkSafeDynamicValuesResponse(){
+        _dynamicValuesResponse.value = Resources.Loading()
+        try {
+            if (network.hasInternetConnection(app)){
+                val response = repository.getDynamicValues()
+                _dynamicValuesResponse.value = handleDynamicResponse(response)
+            }else{
+                _dynamicValuesResponse.value = Resources.Error("No Internet")
+            }
+        }catch (t:Throwable){
+            when(t){
+                is IOException -> _dynamicValuesResponse.value = Resources.Error("Network failure")
+                else -> _dynamicValuesResponse.value = Resources.Error(t.message.toString())
+            }
+        }
+    }
+
+    private fun handleDynamicResponse(response: Response<DynamicValuesResponse>): Resources<DynamicValuesResponse> {
+        if (response.isSuccessful){
+            response.body()?.let {responseList->
+                return Resources.Success(responseList)
+            }
+        }
+        return Resources.Error(response.message().toString())
+    }
+
+    private suspend fun handleNetworkSafeContactUsResponse(params: String){
+        _contactUsResponse.value = Resources.Loading()
+        try {
+            if (network.hasInternetConnection(app)){
+                val response = repository.sendContactUsData(params)
+                _contactUsResponse.value = handleContactUsResponse(response)
+            }else{
+                _contactUsResponse.value = Resources.Error("No Internet")
+            }
+        }catch (t:Throwable){
+            when(t){
+                is IOException -> _contactUsResponse.value = Resources.Error("Network failure")
+                else -> _contactUsResponse.value = Resources.Error(t.message.toString())
+            }
+        }
+    }
+
+    private fun handleContactUsResponse(response: Response<ContactUsResponse>): Resources<ContactUsResponse> {
+        if (response.isSuccessful){
+            response.body()?.let {responseList->
+                return Resources.Success(responseList)
+            }
+        }
+        return Resources.Error(response.message().toString())
+    }
+
+    fun generateEncodedParamsToUpdateUser(
+        id: Int? = null,
+        name: String? = null,
+        email: String? = null,
+        loginId: String? = null,
+        pwd: String? = null,
+        mobile: String? = null,
+        provider: String? = null,
+        city: String? = null,
+        dob: String? = null,
+        gender: String? = null,
+        interest: String? = null,
+        jewels: Int? = null,
+        otp: Int? = null,
+        otpVerified: Int? = null,
+        idVerified: Int? = null,
+        proceed: Int? = null,
+        lastseen: String? = null
+    ): String {
+        val mobileNo = mobile?.let { "mobile=$it" }
+        val params = listOf(
+            id?.let { "id=$it" },
+            name?.let { "name=$it" },
+            email?.let { "email=$it" },
+            loginId?.let { "loginid=$it" },
+            pwd?.let { "pwd=$it" },
+            mobileNo,
+            provider?.let { "provider=$it" },
+            city?.let { "city=$it" },
+            dob?.let { "dob=$it" },
+            gender?.let { "gender=$it" },
+            interest?.let { "interests=$it" },
+            jewels?.let { "jewels=$it" },
+            otp?.let { "otp=$it" },
+            otpVerified?.let { "otpVerified=$it" },
+            idVerified?.let { "idVerified=$it" },
+            proceed?.let { "proceed=$it" },
+            lastseen?.let { "lastseen=$it" }
+        ).mapNotNull { it } // Filter out null values
+
         return params.joinToString(separator = ",")
     }
 
@@ -462,7 +632,6 @@ class TriceNariViewModel @Inject constructor(
         return params.joinToString(separator = ",")
     }
 
-
     fun isValidEmail(email: String): Boolean {
         // Define the regular expression pattern for email validation
         val emailRegex = Regex("([a-z0-9_.-]+)@([da-z.-]+)\\.([a-z.]{2,6})")
@@ -471,5 +640,12 @@ class TriceNariViewModel @Inject constructor(
         return emailRegex.matches(email)
     }
 
-
+    fun separateName(fullName: String): Pair<String, String> {
+        val parts = fullName.trim().split(Regex("\\s+")) // Split by whitespace
+        return when (parts.size) {
+            1 -> Pair(parts[0], "") // If only one part, assume it's the first name
+            2 -> Pair(parts[0], parts[1]) // If two parts, assume the first is first name and second is last name
+            else -> Pair(parts[0], parts.drop(1).joinToString(" ")) // Otherwise, first part is first name, rest is last name
+        }
+    }
 }
