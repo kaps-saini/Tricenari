@@ -63,6 +63,10 @@ class SettingsFragment : Fragment() {
             findNavController().navigate(R.id.action_settingsFragment_to_contact_us)
         }
 
+        binding.tvAboutUs.setOnClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_about_us)
+        }
+
 
         return binding.root
     }

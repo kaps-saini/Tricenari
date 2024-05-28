@@ -26,6 +26,7 @@ import com.mavalore.tricenari.R
 import com.mavalore.tricenari.databinding.FragmentSignInBinding
 import com.mavalore.tricenari.helper.AlertDialogBox
 import com.mavalore.tricenari.helper.CheckInternetConnection
+import com.mavalore.tricenari.helper.Helper
 import com.mavalore.tricenari.presentation.activity.HomeActivity
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Resources
@@ -60,7 +61,10 @@ class SignInFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_in, container, false)
 
+        btnVisibility()
         viewModel.initAuthSharedPreferences(requireContext())
+        // Initialize Firebase Auth
+        auth = Firebase.auth
 
         binding.tvResetPassword.setOnClickListener {
             findNavController().navigate(R.id.action_signInFragment_to_forgetPasswordFragment)
@@ -69,9 +73,6 @@ class SignInFragment : Fragment() {
         binding.tvRegister.setOnClickListener {
             findNavController().navigate(R.id.action_signInFragment_to_registerFragment)
         }
-
-        // Initialize Firebase Auth
-        auth = Firebase.auth
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -89,26 +90,15 @@ class SignInFragment : Fragment() {
         }
 
         binding.etAuthEmail.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                btnVisibility()
-            }
-
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {btnVisibility()}
+            override fun afterTextChanged(s: Editable?) { }
         })
 
         binding.etAuthPassword.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                btnVisibility()
-            }
-
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {btnVisibility()}
+            override fun afterTextChanged(s: Editable?) {}
         })
 
         viewModel.authUserResponse.observe(viewLifecycleOwner) { response ->
@@ -195,7 +185,6 @@ class SignInFragment : Fragment() {
                         "TricenariNewUserAdded:${response.data?.status_message.toString()}"
                     )
                 }
-
                 else -> {}
             }
         }
@@ -297,13 +286,13 @@ class SignInFragment : Fragment() {
 
         var isValid = true
 
-        if (emailOrMobile.isEmpty() || !(viewModel.isValidEmail(emailOrMobile))) {
+        if (emailOrMobile.isEmpty()) {
             binding.textInputLayout.helperText = "*Required"
             isValid = false
-            if (!(viewModel.isValidEmail(emailOrMobile))) {
-                Toast.makeText(requireContext(), "Invalid Email address", Toast.LENGTH_SHORT).show()
-            }
-        } else {
+        }else if(!(viewModel.isValidEmail(emailOrMobile))){
+            Toast.makeText(requireContext(), "Invalid Email address", Toast.LENGTH_SHORT).show()
+            isValid = false
+        } else{
             binding.textInputLayout.helperText = ""
         }
 
@@ -320,29 +309,11 @@ class SignInFragment : Fragment() {
     }
 
     private fun btnVisibility() {
-        val isUserEmailEmpty =
-            binding.etAuthEmail.getText() == null || binding.etAuthEmail.getText().toString()
-                .isEmpty()
-        val isPasswordEmpty =
-            binding.etAuthPassword.getText() == null || binding.etAuthPassword.getText().toString()
-                .isEmpty()
-
-        if (isUserEmailEmpty || isPasswordEmpty) {
-            binding.btnSignIn.setAlpha(0.4f)
-            binding.btnSignIn.isActivated = false
-            binding.btnSignIn.isClickable = false
-        } else {
-            binding.btnSignIn.setAlpha(1f)
-            binding.btnSignIn.isActivated = true
-            binding.btnSignIn.isClickable = true
-        }
+        Helper.btnVisibility(
+            requireContext(),binding.etAuthEmail,binding.etAuthPassword, button = binding.btnSignIn)
     }
 
     private fun switchToDashboard() {
-//        val intent = Intent(requireActivity(), HomeActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//        startActivity(intent)
-
         findNavController().navigate(R.id.action_signInFragment_to_dashboardFragment)
     }
 

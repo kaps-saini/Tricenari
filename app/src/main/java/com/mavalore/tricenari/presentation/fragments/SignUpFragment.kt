@@ -8,21 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.adapters.TextViewBindingAdapter.OnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.load.engine.Resource
 import com.mavalore.tricenari.R
 import com.mavalore.tricenari.databinding.FragmentRegisterBinding
+import com.mavalore.tricenari.helper.Helper
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Resources
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegisterFragment : Fragment() {
+class SignUpFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +34,7 @@ class RegisterFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_register, container, false)
 
-
+        btnVisibility()
         binding.ivBackSignup.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -46,65 +44,29 @@ class RegisterFragment : Fragment() {
         }
 
         binding.etUserName.addTextChangedListener(object :TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                btnVisibility()
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {btnVisibility() }
+            override fun afterTextChanged(s: Editable?) {}
 
         })
 
         binding.etUserEmail.addTextChangedListener(object :TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                btnVisibility()
-            }
-
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {btnVisibility()}
+            override fun afterTextChanged(s: Editable?) {}
         })
 
          binding.etPassword.addTextChangedListener(object :TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                btnVisibility()
-            }
-
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {btnVisibility()}
+            override fun afterTextChanged(s: Editable?) {}
         })
 
         binding.etConfirmPassword.addTextChangedListener(object :TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                btnVisibility()
-            }
-
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {btnVisibility()}
+            override fun afterTextChanged(s: Editable?) {}
         })
-
 
         binding.btnSignup.setOnClickListener {
             validateInputsAndSignUp()
@@ -227,20 +189,8 @@ class RegisterFragment : Fragment() {
     }
 
     private fun btnVisibility() {
-        val isUserEmailEmpty = binding.etUserEmail.getText() == null || binding.etUserEmail.getText().toString().isEmpty()
-        val isPasswordEmpty = binding.etPassword.getText() == null || binding.etPassword.getText().toString().isEmpty()
-        val isConfirmPasswordEmpty = binding.etConfirmPassword.getText() == null || binding.etConfirmPassword.getText().toString().isEmpty()
-        val isUserNameEmpty = binding.etUserName.getText() == null || binding.etUserName.getText().toString().isEmpty()
-
-        if (isUserEmailEmpty || isPasswordEmpty || isUserNameEmpty || isConfirmPasswordEmpty) {
-            binding.btnSignup.setAlpha(0.4f)
-            binding.btnSignup.isActivated = false
-            binding.btnSignup.isClickable = false
-        } else {
-            binding.btnSignup.setAlpha(1f)
-            binding.btnSignup.isActivated = true
-            binding.btnSignup.isClickable = true
-        }
+        Helper.btnVisibility(requireContext(),binding.etUserName,binding.etPassword,
+            binding.etConfirmPassword,binding.etUserEmail, button = binding.btnSignup)
     }
 
     private fun isValidEmail(email: String): Boolean {

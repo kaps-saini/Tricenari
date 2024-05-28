@@ -36,9 +36,7 @@ class HomeActivity : AppCompatActivity() {
                     btmNav.visibility = View.GONE
                 }
             }
-
         }
-
 
     }
 
@@ -49,12 +47,21 @@ class HomeActivity : AppCompatActivity() {
     // Inside your activity
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
+        // Check if the current destination is one of the specified fragments
         if (navController.currentDestination?.id == R.id.dashboardFragment ||
             navController.currentDestination?.id == R.id.eventFragment ||
-            navController.currentDestination?.id == R.id.settingsFragment
+            navController.currentDestination?.id == R.id.settingsFragment ||
+            navController.currentDestination?.id == R.id.signInFragment ||
+            navController.currentDestination?.id == R.id.registerFragment ||
+            navController.currentDestination?.id == R.id.userOtpConfirmation2
         ) {
-            super.onBackPressed()
+            // If the back stack has more than one entry, pop it
+            if (navController.popBackStack().not()) {
+                // If the back stack is empty, call super.onBackPressed() to exit the app
+                super.onBackPressed()
+            }
         } else {
+            // Pop the back stack
             navController.popBackStack()
         }
     }

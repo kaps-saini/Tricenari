@@ -17,6 +17,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.navigateUp
 import com.mavalore.tricenari.R
 import com.mavalore.tricenari.databinding.FragmentUserOtpConfirmationBinding
+import com.mavalore.tricenari.helper.Helper
 import com.mavalore.tricenari.presentation.activity.HomeActivity
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Resources
@@ -43,6 +44,7 @@ class UserOtpConfirmation : Fragment() {
         _binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_user_otp_confirmation, container, false)
 
+        btnVisibility()
         viewModel.initSharedPreferences(requireContext())
 
         viewModel.addUserResponse.observe(viewLifecycleOwner){addResponse->
@@ -93,20 +95,10 @@ class UserOtpConfirmation : Fragment() {
             }
         }
 
-
         binding.etOtp.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-              btnVisibility()
-            }
-
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { btnVisibility() }
+            override fun afterTextChanged(s: Editable?) {}
         })
 
         binding.btnVerify.setOnClickListener {
@@ -146,17 +138,7 @@ class UserOtpConfirmation : Fragment() {
     }
 
     private fun btnVisibility() {
-        val isOtpEmpty = binding.etOtp.getText() == null || binding.etOtp.getText().toString().isEmpty()
-
-        if (isOtpEmpty) {
-            binding.btnVerify.setAlpha(0.4f)
-            binding.btnVerify.isActivated = false
-            binding.btnVerify.isClickable = false
-        } else {
-            binding.btnVerify.setAlpha(1f)
-            binding.btnVerify.isActivated = true
-            binding.btnVerify.isClickable = true
-        }
+        Helper.btnVisibility(requireContext(),binding.etOtp, button = binding.btnVerify)
     }
 
     override fun onDestroy() {

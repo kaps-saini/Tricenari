@@ -264,7 +264,7 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView5"
+            android:id="@+id/cvPartnerWithUs"
             android:layout_width="68dp"
             android:layout_height="68dp"
             app:cardCornerRadius="12dp"
@@ -302,10 +302,10 @@
             app:cardElevation="12dp"
             app:cardMaxElevation="11dp"
             app:cardPreventCornerOverlap="true"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView5"
+            app:layout_constraintBottom_toBottomOf="@+id/cvPartnerWithUs"
             app:layout_constraintEnd_toEndOf="@+id/cvSuperWomen"
             app:layout_constraintStart_toStartOf="@+id/cvSuperWomen"
-            app:layout_constraintTop_toTopOf="@+id/cardView5">
+            app:layout_constraintTop_toTopOf="@+id/cvPartnerWithUs">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -399,9 +399,9 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/cardView5"
-            app:layout_constraintStart_toStartOf="@+id/cardView5"
-            app:layout_constraintTop_toBottomOf="@+id/cardView5" />
+            app:layout_constraintEnd_toEndOf="@+id/cvPartnerWithUs"
+            app:layout_constraintStart_toStartOf="@+id/cvPartnerWithUs"
+            app:layout_constraintTop_toBottomOf="@+id/cvPartnerWithUs" />
 
         <TextView
             android:id="@+id/textView10"

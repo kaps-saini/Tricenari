@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".presentation.fragments.UserOtpConfirmation">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,7 +38,7 @@
             android:layout_marginTop="24dp"
             android:text="Verify your email"
             android:textColor="@color/maroon"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/ivBackVerify" />
@@ -86,7 +85,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etOtp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingStart="55dp"
                 android:paddingEnd="0dp"
                 android:textColor="@color/black"
@@ -99,12 +98,12 @@
         <Button
             android:id="@+id/btnVerify"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="55dp"
             android:text="Verify"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:backgroundTint="@color/maroon"
             android:layout_marginTop="16dp"
-            android:alpha="0.4"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/guideline"

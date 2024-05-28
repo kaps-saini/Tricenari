@@ -73,6 +73,10 @@ class DashboardFragment : Fragment() {
             }
         }
 
+        binding.cvPartnerWithUs.setOnClickListener{
+            findNavController().navigate(R.id.action_dashboardFragment_to_partnerWithUs)
+        }
+
         return binding.root
     }
 

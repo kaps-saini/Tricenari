@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">TriceNari</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="edit_your_profile">Edit your profile</string>
     <string name="event_image">Event image</string>
@@ -13,4 +12,40 @@
     <string name="close_this_window">Close this window</string>
     <string name="web_client_id">750676211936-079fgrg6n2nq2h6an49qnd3gjrarctao.apps.googleusercontent.com</string>
     <string name="start_collecting_jewel_to_get_n_exciting_rewards">Start collecting jewel to get \n exciting rewards!!</string>
+
+    <string name="h1">They say, "\"<i>Men are from mars women are from venus</i>"\". Why? Because there are fundamental psychological differences between the two genders and they have different emotional requirements. We at TriceNARI understand what a woman feels, what a woman needs and thus we extend a hand of friendship towards every woman - because "\"<b>TriceNARI is a friend that every woman deserves</b>"\" :)&#10;&#10;Women often dedicate their lives serving their families; starting from parents, siblings to in-laws and children; while sacrificing their own needs, their hobbies, their passion and what not. At some point they realize that they need more from life, they want to do something for their own selves, but they do not know where to start or what to do or who to ask.&#10;&#10;Are you sailing in the same boat? Well, TriceNARI comes to your rescue. TriceNARI is that friend who understands your problem, provides you the solution and helps you to implement that solution as well. Whether you are trying to find the passion of your life or to achieve something or to simply enjoy your time, TriceNARI can help you do that all. Wondering how? Here&apos;s how:</string>
+
+    <string name="sb1"><b>Networking Events</b></string>
+    <string name="sb1Content">TriceNARI often organizes online and offline events for you to broaden your network. At times, these could be based on a particular theme or a specific interest/hobby and sometimes these could be open to all fields/areas. You can keep an eye on the upcoming events to find the ones that interest you.</string>
+
+    <string name="sb2"><b>Fun Gatherings/Celebrations</b></string>
+    <string name="sb2Content">If you have stopped having fun and enjoying every day of your life, you have stopped living, no? We encourage you to keep the child inside you alive and to help you do so we keep organizing fun activities where you can participate and have a great time with fellow women. Nobody judges each other here whether you act normal or abnormal :)</string>
+
+    <string name="sb3"><b>Platform to showcase your talent</b></string>
+    <string name="sb3Content">Do you have a skill to boast but no audience? Well, not anymore. Find the audience for your talent and show it off like a pro. Write a post, create a video or host an event, just anything you\'d like to do. Get in touch with our Expert NARI team to understand about different ways you can use to showcase your skill.</string>
+
+    <string name="sb4"><b>Learn that skill you always wanted</b></string>
+    <string name="sb4Content">If you have dreamt of doing something since long, but didn\'t get the courage to do it or couldn\'t find ways to learn it - you can do it now. Is that painting, dancing, cooking? Come on now, tell us about it and we can add wings to your flight to this journey.</string>
+
+    <string name="sb5"><b>Follow Your Passion</b></string>
+    <string name="sb5Content">You just love music, don\'t you? Oh no no, you are a yoga practitioner. No, what? A traveler? Wow! Follow your passion to the max. It can get you fame, money and all the success you can dream of. Not sure how? Leave it to us. Get on board and the rest will follow.</string>
+
+    <string name="sb6"><b>Learn from Super Women\'s stories</b></string>
+    <string name="sb6Content">Numerous women who are just like you were lost at one point in their life. They collected all the courage they could and achieved something that the world is proud of. You can be the next. Check out their stories or share yours!</string>
+
+    <string name="sb7"><b>Create business opportunities</b></string>
+    <string name="sb7Content">We understand that a lot of women have always wanted to stand on their feet and be independent. Believe us, each of us is capable enough, it is just a mind block that restricts some of us while the others gather their courage and succeed. TriceNARI can be that little push you need along with all the help and guidance to start your venture.</string>
+
+    <string name="sb8"><b>Have a friend by your side</b></string>
+    <string name="sb8Content">Have you slowly lost connection with all your friends? Do you miss that one sister-like connection who can support you just as you are? Who can listen to all the crap you want to utter or the frustration that you want to vent out? Or simply someone who understands you? Get connected with our NARI Friends and get a friend for life &#x2764;</string>
+
+    <string name="partner_with_us_heading">Join hands with TriceNARI and get a chance to reach thousands of women within a few seconds. All you need to have is a relevant product or service to offer to our wonderful women army and we will take care of the rest.</string>
+
+    <string name="partner_with_us_note">You can choose all or any of your preferred method based on your requirements. Get in touch with our team at <b>partnership@tricenari.com</b> or <b>Contact Us</b> to understand more and get going.</string>
+    <string name="partner_content_1">Create an ad with your offerings and place it within our app or web dashboard for our users to see and react</string>
+    <string name="partner_content_2">Curate special offers for our users like an additional discount or free goodies and get them distributed through our daily spins and other interactive activities</string>
+    <string name="partner_content_3">If you have great products to sell to our beautiful women, get featured on our store front for users to directly land to your shopping portal</string>
+    <string name="partner_content_4">If you want to give away your product samples to the targeted women, our specially organized events would be the best choice for you</string>
+    <string name="partner_content_5">If you are a women influencer or a social media brand offering women products, get an instant fame by being in limelight amongst our army of women</string>
+    <string name="partner_content_6">Do you sell products on marketplaces? Get us to refer your products to our audiences by listing it on store front designed specially for our women</string>
 </resources>

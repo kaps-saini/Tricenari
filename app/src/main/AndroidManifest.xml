@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Splash.Screen"
-        tools:targetApi="31"
+        tools:targetApi="tiramisu"
+        android:enableOnBackInvokedCallback="true"
         android:usesCleartextTraffic="true">
         <activity
             android:windowSoftInputMode="adjustResize"

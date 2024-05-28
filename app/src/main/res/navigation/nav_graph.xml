@@ -31,6 +31,9 @@
             app:destination="@id/signInFragment"
             app:popUpTo="@id/dashboardFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_partnerWithUs"
+            app:destination="@id/partnerWithUs" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -74,6 +77,9 @@
             app:destination="@id/signInFragment"
             app:popUpTo="@id/settingsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_settingsFragment_to_about_us"
+            app:destination="@id/about_us" />
     </fragment>
     <fragment
         android:id="@+id/eventBookingFragment"
@@ -185,12 +191,13 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.mavalore.tricenari.presentation.fragments.RegisterFragment"
+        android:name="com.mavalore.tricenari.presentation.fragments.SignUpFragment"
         android:label="RegisterFragment" >
         <action
             android:id="@+id/action_registerFragment_to_signInFragment"
             app:destination="@id/signInFragment"
-            app:popUpTo="@id/registerFragment" />
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_registerFragment_to_userOtpConfirmation2"
             app:destination="@id/userOtpConfirmation2" />
@@ -222,5 +229,19 @@
         <argument
             android:name="email"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/about_us"
+        android:name="com.mavalore.tricenari.presentation.fragments.AboutUs"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/partnerWithUs"
+        android:name="com.mavalore.tricenari.presentation.fragments.PartnerWithUs"
+        android:label="fragment_partner_with_us"
+        tools:layout="@layout/fragment_partner_with_us" >
+        <action
+            android:id="@+id/action_partnerWithUs_to_contact_us"
+            app:destination="@id/contact_us" />
     </fragment>
 </navigation>

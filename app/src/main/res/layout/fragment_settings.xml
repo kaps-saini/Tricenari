@@ -123,6 +123,18 @@
                 app:drawableStartCompat="@drawable/icon_feedback"/>
 
             <TextView
+                android:id="@+id/tvAboutUs"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:drawablePadding="18dp"
+                android:gravity="center_vertical"
+                android:text="About us"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/icon_about_us"/>
+
+            <TextView
                 android:id="@+id/tvSignout"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
