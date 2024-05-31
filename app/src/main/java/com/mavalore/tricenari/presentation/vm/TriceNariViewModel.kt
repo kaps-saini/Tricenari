@@ -14,6 +14,7 @@ import com.mavalore.tricenari.domain.models.article.NextArticleInfo
 import com.mavalore.tricenari.domain.models.article.SingleArticleResponse
 import com.mavalore.tricenari.domain.models.contactUs.ContactUsResponse
 import com.mavalore.tricenari.domain.models.dynamicValues.DynamicValuesResponse
+import com.mavalore.tricenari.domain.models.productRecomendation.ProductRecommendationResponse
 import com.mavalore.tricenari.domain.models.superwomen.SingleSuperWomenResponse
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenInfo
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenResponse
@@ -74,13 +75,14 @@ class TriceNariViewModel @Inject constructor(
     private var _otpResponse: MutableLiveData<Resources<AddUserResponse>> = MutableLiveData()
     val otpResponse: LiveData<Resources<AddUserResponse>> get() = _otpResponse
 
-    private var _dynamicValuesResponse: MutableLiveData<Resources<DynamicValuesResponse>> =
-        MutableLiveData()
+    private var _dynamicValuesResponse: MutableLiveData<Resources<DynamicValuesResponse>> = MutableLiveData()
     val dynamicValuesResponse: LiveData<Resources<DynamicValuesResponse>> get() = _dynamicValuesResponse
 
-    private var _contactUsResponse: MutableLiveData<Resources<ContactUsResponse>> =
-        MutableLiveData()
+    private var _contactUsResponse: MutableLiveData<Resources<ContactUsResponse>> = MutableLiveData()
     val contactUsResponse: LiveData<Resources<ContactUsResponse>> get() = _contactUsResponse
+
+    private var _productRecommendationResponse: MutableLiveData<Resources<ProductRecommendationResponse>> = MutableLiveData()
+    val productRecommendationResponse: LiveData<Resources<ProductRecommendationResponse>> get() = _productRecommendationResponse
 
 
     init {
@@ -253,6 +255,10 @@ class TriceNariViewModel @Inject constructor(
 
     fun sendContactUsData(params: String) = viewModelScope.launch {
         handleNetworkSafeContactUsResponse(params)
+    }
+
+    fun getProductRecommendationData() = viewModelScope.launch {
+        handleNetworkSafeProductRecommendationResponse()
     }
 
     private suspend fun handleNetworkSafeAllArticleResponse(){
@@ -569,6 +575,32 @@ class TriceNariViewModel @Inject constructor(
     }
 
     private fun handleContactUsResponse(response: Response<ContactUsResponse>): Resources<ContactUsResponse> {
+        if (response.isSuccessful){
+            response.body()?.let {responseList->
+                return Resources.Success(responseList)
+            }
+        }
+        return Resources.Error(response.message().toString())
+    }
+
+    private suspend fun handleNetworkSafeProductRecommendationResponse(){
+        _productRecommendationResponse.value = Resources.Loading()
+        try {
+            if (network.hasInternetConnection(app)){
+                val response = repository.getProductRecommendationData()
+                _productRecommendationResponse.value = handleProductRecommendationResponse(response)
+            }else{
+                _productRecommendationResponse.value = Resources.Error("No Internet")
+            }
+        }catch (t:Throwable){
+            when(t){
+                is IOException -> _productRecommendationResponse.value = Resources.Error("Network failure")
+                else -> _productRecommendationResponse.value = Resources.Error(t.message.toString())
+            }
+        }
+    }
+
+    private fun handleProductRecommendationResponse(response: Response<ProductRecommendationResponse>): Resources<ProductRecommendationResponse> {
         if (response.isSuccessful){
             response.body()?.let {responseList->
                 return Resources.Success(responseList)

@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_partnerWithUs"
             app:destination="@id/partnerWithUs" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_productRecommendation"
+            app:destination="@id/productRecommendation" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -244,4 +247,9 @@
             android:id="@+id/action_partnerWithUs_to_contact_us"
             app:destination="@id/contact_us" />
     </fragment>
+    <fragment
+        android:id="@+id/productRecommendation"
+        android:name="com.mavalore.tricenari.ProductRecommendation"
+        android:label="fragment_product_recommendation"
+        tools:layout="@layout/fragment_product_recommendation" />
 </navigation>

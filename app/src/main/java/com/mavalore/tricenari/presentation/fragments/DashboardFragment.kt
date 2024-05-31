@@ -60,6 +60,10 @@ class DashboardFragment : Fragment() {
             findNavController().navigate(R.id.action_dashboardFragment_to_profileFragment)
         }
 
+        binding.tvNariShop.setOnClickListener {
+            findNavController().navigate(R.id.action_dashboardFragment_to_productRecommendation)
+        }
+
         if (Const.dashboardAdIsVisible){
             binding.cvDashboardAd.visibility = View.VISIBLE
         }else{

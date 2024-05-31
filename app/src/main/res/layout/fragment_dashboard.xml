@@ -308,6 +308,7 @@
             app:layout_constraintTop_toTopOf="@+id/cvPartnerWithUs">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/tvNariShop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/card_background">
@@ -395,10 +396,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="sans-serif-light"
-            android:text="abc"
+            android:text="Partnership"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/cvPartnerWithUs"
             app:layout_constraintStart_toStartOf="@+id/cvPartnerWithUs"
             app:layout_constraintTop_toBottomOf="@+id/cvPartnerWithUs" />
@@ -409,10 +409,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="sans-serif-light"
-            android:text="abc"
+            android:text="NARI'S \n shop"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/cardView6"
             app:layout_constraintStart_toStartOf="@+id/cardView6"
             app:layout_constraintTop_toBottomOf="@+id/cardView6" />

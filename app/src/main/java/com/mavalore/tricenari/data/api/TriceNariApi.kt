@@ -5,6 +5,7 @@ import com.mavalore.tricenari.domain.models.article.NextArticleInfo
 import com.mavalore.tricenari.domain.models.article.SingleArticleResponse
 import com.mavalore.tricenari.domain.models.contactUs.ContactUsResponse
 import com.mavalore.tricenari.domain.models.dynamicValues.DynamicValuesResponse
+import com.mavalore.tricenari.domain.models.productRecomendation.ProductRecommendationResponse
 import com.mavalore.tricenari.domain.models.superwomen.SingleSuperWomenResponse
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenInfo
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenResponse
@@ -75,6 +76,9 @@ interface TriceNariApi {
     suspend fun contactUs(
         @Path("params") params: String
     ): Response<ContactUsResponse>
+
+    @GET("/api/recommended_products/dummy/5")
+    suspend fun getProductRecommendationItems(): Response<ProductRecommendationResponse>
 
 
 }

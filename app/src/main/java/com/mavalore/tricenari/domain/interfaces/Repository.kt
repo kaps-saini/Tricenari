@@ -5,6 +5,7 @@ import com.mavalore.tricenari.domain.models.article.NextArticleInfo
 import com.mavalore.tricenari.domain.models.article.SingleArticleResponse
 import com.mavalore.tricenari.domain.models.contactUs.ContactUsResponse
 import com.mavalore.tricenari.domain.models.dynamicValues.DynamicValuesResponse
+import com.mavalore.tricenari.domain.models.productRecomendation.ProductRecommendationResponse
 import com.mavalore.tricenari.domain.models.superwomen.SingleSuperWomenResponse
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenInfo
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenResponse
@@ -37,5 +38,7 @@ interface Repository {
 
     suspend fun getDynamicValues():Response<DynamicValuesResponse>
     suspend fun sendContactUsData(params: String):Response<ContactUsResponse>
+
+    suspend fun getProductRecommendationData():Response<ProductRecommendationResponse>
 
 }
