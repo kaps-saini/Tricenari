@@ -5,6 +5,8 @@ import com.mavalore.tricenari.domain.models.article.NextArticleInfo
 import com.mavalore.tricenari.domain.models.article.SingleArticleResponse
 import com.mavalore.tricenari.domain.models.contactUs.ContactUsResponse
 import com.mavalore.tricenari.domain.models.dynamicValues.DynamicValuesResponse
+import com.mavalore.tricenari.domain.models.event.EventDetailsResponse
+import com.mavalore.tricenari.domain.models.event.EventInfoResponse
 import com.mavalore.tricenari.domain.models.productRecomendation.ProductRecommendationResponse
 import com.mavalore.tricenari.domain.models.superwomen.SingleSuperWomenResponse
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenInfo
@@ -79,6 +81,13 @@ interface TriceNariApi {
 
     @GET("/api/recommended_products/dummy/5")
     suspend fun getProductRecommendationItems(): Response<ProductRecommendationResponse>
+
+    @GET("/api/get_event_info_by_id/{eventId}/dummy")
+    suspend fun getEventInfo(@Path("eventId") eventId:Int): Response<EventInfoResponse>
+
+    @GET("/api/get_event_details/{eventId}/dummy")
+    suspend fun getEventDetails(@Path("eventId") eventId:Int): Response<EventDetailsResponse>
+
 
 
 }

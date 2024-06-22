@@ -14,6 +14,8 @@ import com.mavalore.tricenari.domain.models.article.NextArticleInfo
 import com.mavalore.tricenari.domain.models.article.SingleArticleResponse
 import com.mavalore.tricenari.domain.models.contactUs.ContactUsResponse
 import com.mavalore.tricenari.domain.models.dynamicValues.DynamicValuesResponse
+import com.mavalore.tricenari.domain.models.event.EventDetailsResponse
+import com.mavalore.tricenari.domain.models.event.EventInfoResponse
 import com.mavalore.tricenari.domain.models.productRecomendation.ProductRecommendationResponse
 import com.mavalore.tricenari.domain.models.superwomen.SingleSuperWomenResponse
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenInfo
@@ -83,6 +85,12 @@ class TriceNariViewModel @Inject constructor(
 
     private var _productRecommendationResponse: MutableLiveData<Resources<ProductRecommendationResponse>> = MutableLiveData()
     val productRecommendationResponse: LiveData<Resources<ProductRecommendationResponse>> get() = _productRecommendationResponse
+
+     private var _eventDetailsResponse: MutableLiveData<Resources<EventDetailsResponse>> = MutableLiveData()
+    val eventDetailsResponse: LiveData<Resources<EventDetailsResponse>> get() = _eventDetailsResponse
+
+    private var _eventInfoResponse: MutableLiveData<Resources<EventInfoResponse>> = MutableLiveData()
+    val eventInfoResponse: LiveData<Resources<EventInfoResponse>> get() = _eventInfoResponse
 
 
     init {
@@ -259,6 +267,14 @@ class TriceNariViewModel @Inject constructor(
 
     fun getProductRecommendationData() = viewModelScope.launch {
         handleNetworkSafeProductRecommendationResponse()
+    }
+
+    fun getEventDetails(eventId:Int) = viewModelScope.launch {
+        handleNetworkSafeEventDetailsResponse(eventId)
+    }
+
+    fun getEventInfo(eventId:Int) = viewModelScope.launch {
+        handleNetworkSafeEventInfoResponse(eventId)
     }
 
     private suspend fun handleNetworkSafeAllArticleResponse(){
@@ -601,6 +617,58 @@ class TriceNariViewModel @Inject constructor(
     }
 
     private fun handleProductRecommendationResponse(response: Response<ProductRecommendationResponse>): Resources<ProductRecommendationResponse> {
+        if (response.isSuccessful) {
+            response.body()?.let { responseList ->
+                return Resources.Success(responseList)
+            }
+        }
+        return Resources.Error(response.message().toString())
+    }
+
+     private suspend fun handleNetworkSafeEventDetailsResponse(eventId:Int){
+         _eventDetailsResponse.value = Resources.Loading()
+        try {
+            if (network.hasInternetConnection(app)){
+                val response = repository.getEventDetails(eventId)
+                _eventDetailsResponse.value = handleEventDetailsResponse(response)
+            }else{
+                _eventDetailsResponse.value = Resources.Error("No Internet")
+            }
+        }catch (t:Throwable){
+            when(t){
+                is IOException -> _eventDetailsResponse.value = Resources.Error("Network failure")
+                else -> _eventDetailsResponse.value = Resources.Error(t.message.toString())
+            }
+        }
+    }
+
+    private fun handleEventDetailsResponse(response: Response<EventDetailsResponse>): Resources<EventDetailsResponse> {
+        if (response.isSuccessful){
+            response.body()?.let {responseList->
+                return Resources.Success(responseList)
+            }
+        }
+        return Resources.Error(response.message().toString())
+    }
+
+    private suspend fun handleNetworkSafeEventInfoResponse(eventId:Int){
+         _eventInfoResponse.value = Resources.Loading()
+        try {
+            if (network.hasInternetConnection(app)){
+                val response = repository.getEventInfo(eventId)
+                _eventInfoResponse.value = handleEventInfoResponse(response)
+            }else{
+                _eventInfoResponse.value = Resources.Error("No Internet")
+            }
+        }catch (t:Throwable){
+            when(t){
+                is IOException -> _eventInfoResponse.value = Resources.Error("Network failure")
+                else -> _eventInfoResponse.value = Resources.Error(t.message.toString())
+            }
+        }
+    }
+
+    private fun handleEventInfoResponse(response: Response<EventInfoResponse>): Resources<EventInfoResponse> {
         if (response.isSuccessful){
             response.body()?.let {responseList->
                 return Resources.Success(responseList)

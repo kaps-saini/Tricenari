@@ -7,6 +7,8 @@ import com.mavalore.tricenari.domain.models.article.NextArticleInfo
 import com.mavalore.tricenari.domain.models.article.SingleArticleResponse
 import com.mavalore.tricenari.domain.models.contactUs.ContactUsResponse
 import com.mavalore.tricenari.domain.models.dynamicValues.DynamicValuesResponse
+import com.mavalore.tricenari.domain.models.event.EventDetailsResponse
+import com.mavalore.tricenari.domain.models.event.EventInfoResponse
 import com.mavalore.tricenari.domain.models.productRecomendation.ProductRecommendationResponse
 import com.mavalore.tricenari.domain.models.superwomen.SingleSuperWomenResponse
 import com.mavalore.tricenari.domain.models.superwomen.SuperWomenInfo
@@ -55,4 +57,8 @@ class RepositoryImpl @Inject constructor(
 
     override suspend fun getProductRecommendationData(): Response<ProductRecommendationResponse> =
         triceNariApi.getProductRecommendationItems()
+
+    override suspend fun getEventInfo(eventId: Int): Response<EventInfoResponse> = triceNariApi.getEventInfo(eventId)
+
+    override suspend fun getEventDetails(eventId: Int): Response<EventDetailsResponse> = triceNariApi.getEventDetails(eventId)
 }

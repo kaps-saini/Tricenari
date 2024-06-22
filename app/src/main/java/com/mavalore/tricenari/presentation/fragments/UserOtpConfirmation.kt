@@ -117,9 +117,6 @@ class UserOtpConfirmation : Fragment() {
                 binding.pbVerify.visibility = View.INVISIBLE
 
                 Toast.makeText(requireContext(),"Email verified successfully",Toast.LENGTH_SHORT).show()
-//                startActivity(Intent(activity,HomeActivity::class.java))
-//                Intent.FLAG_ACTIVITY_CLEAR_TOP
-//                Intent.FLAG_ACTIVITY_NEW_TASK
                 findNavController().navigate(R.id.action_userOtpConfirmation2_to_setup_profile)
             }else{
                 Log.e("otp",inputOtp.toString())

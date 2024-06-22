@@ -40,6 +40,7 @@ android {
     }
     buildFeatures{
         dataBinding = true
+        viewBinding = true
     }
 }
 
@@ -54,6 +55,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.android.gms:play-services-auth:21.0.0")
     implementation("androidx.media3:media3-common:1.3.1")
+    implementation("androidx.activity:activity:1.9.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -84,4 +86,7 @@ dependencies {
 
     //Image loading library
     implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    // Facebook SDK
+    implementation("com.facebook.android:facebook-login:15.2.0")
 }

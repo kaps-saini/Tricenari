@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="transparent">#00000000</color>
     <color name="light_black">#1D1B20</color>
+    <color name="light_black2">#CD000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_white">#D3C7C7</color>
     <color name="pink">#EA7A9D</color>
@@ -13,5 +14,6 @@
     <color name="red">#B00020</color>
     <color name="dark_gray">@android:color/darker_gray</color>
     <color name="lite_gray">#CACACA</color>
+    <color name="lite_gray2">#D9D9D9</color>
     <color name="shimmer_color">#DDDDDD</color>
 </resources>

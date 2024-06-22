@@ -2,6 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/baloo</item>
+        <item>@font/gentium_book_basic</item>
         <item>@font/playfair_display</item>
     </array>
 </resources>

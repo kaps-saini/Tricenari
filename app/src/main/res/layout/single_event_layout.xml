@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="225dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/yoga"
+                android:src="@drawable/women_pic"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"

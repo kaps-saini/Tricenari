@@ -1,4 +1,4 @@
-package com.mavalore.tricenari
+package com.mavalore.tricenari.presentation.fragments
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mavalore.tricenari.R
 import com.mavalore.tricenari.adapter.recyclerView.ProductRecommendationAdapter
 import com.mavalore.tricenari.databinding.FragmentProductRecommendationBinding
 import com.mavalore.tricenari.domain.models.productRecomendation.RecommendedItemsData
@@ -34,7 +35,8 @@ class ProductRecommendation : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_product_recommendation, container, false)
+        _binding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_product_recommendation, container, false)
 
         setupRecyclerView()
 

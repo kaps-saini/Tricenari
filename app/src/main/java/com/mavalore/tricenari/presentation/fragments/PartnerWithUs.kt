@@ -33,29 +33,29 @@ class PartnerWithUs : Fragment() {
         _binding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_partner_with_us, container, false)
 
-        val view1Heading = binding.view1.findViewById<TextView>(R.id.tvHeading)
-        val view1Content = binding.view1.findViewById<TextView>(R.id.tvContent)
-        val view1Image = binding.view1.findViewById<ImageView>(R.id.image)
+        val view1Heading = binding.view1.tvHeading
+        val view1Content = binding.view1.tvContent
+        val view1Image = binding.view1.image
 
-        val view2Heading = binding.view2.findViewById<TextView>(R.id.tvHeading)
-        val view2Content = binding.view2.findViewById<TextView>(R.id.tvContent)
-        val view2Image = binding.view2.findViewById<ImageView>(R.id.image)
+        val view2Heading = binding.view2.tvHeading
+        val view2Content = binding.view2.tvContent
+        val view2Image = binding.view2.image
 
-        val view3Heading = binding.view3.findViewById<TextView>(R.id.tvHeading)
-        val view3Content = binding.view3.findViewById<TextView>(R.id.tvContent)
-        val view3Image = binding.view3.findViewById<ImageView>(R.id.image)
+        val view3Heading = binding.view3.tvHeading
+        val view3Content = binding.view3.tvContent
+        val view3Image = binding.view3.image
 
-        val view4Heading = binding.view4.findViewById<TextView>(R.id.tvHeading)
-        val view4Content = binding.view4.findViewById<TextView>(R.id.tvContent)
-        val view4Image = binding.view4.findViewById<ImageView>(R.id.image)
+        val view4Heading = binding.view4.tvHeading
+        val view4Content = binding.view4.tvContent
+        val view4Image = binding.view4.image
 
-        val view5Heading = binding.view5.findViewById<TextView>(R.id.tvHeading)
-        val view5Content = binding.view5.findViewById<TextView>(R.id.tvContent)
-        val view5Image = binding.view5.findViewById<ImageView>(R.id.image)
+        val view5Heading = binding.view5.tvHeading
+        val view5Content = binding.view5.tvContent
+        val view5Image = binding.view5.image
 
-        val view6Heading = binding.view6.findViewById<TextView>(R.id.tvHeading)
-        val view6Content = binding.view6.findViewById<TextView>(R.id.tvContent)
-        val view6Image = binding.view6.findViewById<ImageView>(R.id.image)
+        val view6Heading = binding.view6.tvHeading
+        val view6Content = binding.view6.tvContent
+        val view6Image = binding.view6.image
 
         view1Heading.text = "Place Your Ads"
         view1Content.text = resources.getString(R.string.partner_content_1)

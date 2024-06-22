@@ -5,7 +5,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProductRecommendation">
+    tools:context=".presentation.fragments.ProductRecommendation">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
