@@ -79,7 +79,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:placeholderTextColor="@color/white"
+            app:placeholderTextColor="@color/dark_gray"
             app:startIconDrawable="@drawable/icon_otp">
 
             <com.google.android.material.textfield.TextInputEditText

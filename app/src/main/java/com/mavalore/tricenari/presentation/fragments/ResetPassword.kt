@@ -30,8 +30,6 @@ class ResetPassword : Fragment() {
 
     private val viewModel by viewModels<TriceNariViewModel>()
     private val args:ResetPasswordArgs by navArgs()
-    @Inject
-    lateinit var checkInternetConnection: CheckInternetConnection
 
     @Inject
     lateinit var alertDialogBox: AlertDialogBox

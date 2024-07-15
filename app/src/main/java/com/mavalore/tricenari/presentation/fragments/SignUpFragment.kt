@@ -13,26 +13,31 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mavalore.tricenari.R
-import com.mavalore.tricenari.databinding.FragmentRegisterBinding
+import com.mavalore.tricenari.databinding.FragmentSignupBinding
+import com.mavalore.tricenari.helper.AlertDialogBox
 import com.mavalore.tricenari.helper.Helper
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Resources
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignUpFragment : Fragment() {
 
-    private var _binding: FragmentRegisterBinding? = null
+    private var _binding: FragmentSignupBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<TriceNariViewModel>()
+
+    @Inject
+    lateinit var alertDialogBox: AlertDialogBox
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_register, container, false)
+        _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_signup, container, false)
 
         btnVisibility()
         binding.ivBackSignup.setOnClickListener {
@@ -79,7 +84,7 @@ class SignUpFragment : Fragment() {
                     binding.btnSignup.visibility = View.VISIBLE
                     binding.pbSignup.visibility = View.INVISIBLE
                     if (response.message?.contains("No Internet") == true) {
-                        //  noInternetAlertDialogBox.showNoInternetDialog(requireContext())
+                        alertDialogBox.showNoInternetDialog(requireContext())
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -145,12 +150,12 @@ class SignUpFragment : Fragment() {
         }
 
         //only email valid so check for email pattern
-        if (email.isEmpty() || !(isValidEmail(email))) {
+        if (email.isEmpty()) {
             binding.tilEmail.helperText = "*Required"
             isValid = false
-            if (!(isValidEmail(email))){
-                Toast.makeText(requireContext(),"Invalid Email address", Toast.LENGTH_SHORT).show()
-            }
+        }else if (!(viewModel.isValidEmail(email))){
+            Helper.showSnackbar(requireView(),"Invalid Email address")
+            isValid = false
         }else{
             binding.tilEmail.helperText = ""
         }
@@ -181,7 +186,6 @@ class SignUpFragment : Fragment() {
 
         // If all fields are valid, perform sign up
         if (isValid) {
-
             val param = viewModel.generateEncodedParamsToAddUser(userName,email,email,password,null,"email")
             // Perform sign up logic here
             viewModel.addNewUser(param)
@@ -191,14 +195,6 @@ class SignUpFragment : Fragment() {
     private fun btnVisibility() {
         Helper.btnVisibility(requireContext(),binding.etUserName,binding.etPassword,
             binding.etConfirmPassword,binding.etUserEmail, button = binding.btnSignup)
-    }
-
-    private fun isValidEmail(email: String): Boolean {
-        // Define the regular expression pattern for email validation
-        val emailRegex = Regex("([a-z0-9_.-]+)@([da-z.-]+)\\.([a-z.]{2,6})")
-
-        // Check if the input email matches the pattern
-        return emailRegex.matches(email)
     }
 
     override fun onDestroy() {

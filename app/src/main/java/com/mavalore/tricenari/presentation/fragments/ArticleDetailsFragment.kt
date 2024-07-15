@@ -87,19 +87,14 @@ class ArticleDetailsFragment : Fragment() {
                             binding.scArticle.visibility = View.VISIBLE
                             binding.shimmerArticle.visibility = View.GONE
                             binding.shimmerArticle.stopShimmer()
-
                         }
                     }else{
                         binding.nextArticle.visibility = View.GONE
                     }
-
                 }
                 else -> {}
             }
         }
-
-
-
 
         binding.ivBlogBack.setOnClickListener {
             findNavController().navigateUp()
@@ -139,7 +134,6 @@ class ArticleDetailsFragment : Fragment() {
         binding.scArticle.visibility = View.VISIBLE
         binding.shimmerArticle.visibility = View.GONE
         binding.shimmerArticle.stopShimmer()
-
     }
 
     private fun loadingResponse() {
@@ -161,7 +155,6 @@ class ArticleDetailsFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-
         binding.shimmerArticle.stopShimmer()
 
         _binding = null

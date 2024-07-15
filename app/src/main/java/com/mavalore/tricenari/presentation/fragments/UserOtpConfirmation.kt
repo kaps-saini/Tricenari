@@ -1,27 +1,27 @@
 package com.mavalore.tricenari.presentation.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.navigateUp
 import com.mavalore.tricenari.R
 import com.mavalore.tricenari.databinding.FragmentUserOtpConfirmationBinding
+import com.mavalore.tricenari.helper.AlertDialogBox
+import com.mavalore.tricenari.helper.CheckInternetConnection
 import com.mavalore.tricenari.helper.Helper
-import com.mavalore.tricenari.presentation.activity.HomeActivity
 import com.mavalore.tricenari.presentation.vm.TriceNariViewModel
 import com.mavalore.tricenari.utils.Resources
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserOtpConfirmation : Fragment() {
@@ -30,6 +30,9 @@ class UserOtpConfirmation : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<TriceNariViewModel>()
+
+    @Inject
+    lateinit var alertDialogBox: AlertDialogBox
 
     private var sendOtp = 0
     private var userId = 0
@@ -50,7 +53,11 @@ class UserOtpConfirmation : Fragment() {
         viewModel.addUserResponse.observe(viewLifecycleOwner){addResponse->
             when(addResponse){
                 is Resources.Error -> {
-                    Toast.makeText(requireContext(),addResponse.message.toString(), Toast.LENGTH_SHORT).show()
+                    if (addResponse.message?.contains("No Internet", true)== true){
+                        alertDialogBox.showNoInternetDialog(requireContext())
+                    }else{
+                        Toast.makeText(requireContext(),addResponse.message.toString(), Toast.LENGTH_SHORT).show()
+                    }
                 }
                 is Resources.Loading -> {
 
@@ -71,8 +78,8 @@ class UserOtpConfirmation : Fragment() {
         viewModel.otpResponse.observe(viewLifecycleOwner){response->
             when(response){
                 is Resources.Error -> {
-                    if (response.message?.contains("No Internet") == true){
-                      //  noInternetAlertDialogBox.showNoInternetDialog(requireContext())
+                    if (response.message?.contains("No Internet", true) == true){
+                        alertDialogBox.showNoInternetDialog(requireContext())
                     }else if (response.message?.contains("User Not Found") == true){
                         Toast.makeText(requireContext(),"Wrong email",Toast.LENGTH_SHORT).show()
                     }
