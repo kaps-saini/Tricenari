@@ -181,21 +181,15 @@ class SignInFragment : Fragment() {
                         authResponse?.data?.let { userDetails ->
                             val otpVerified = userDetails.otpVerified
                             if (otpVerified != 1) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Verification Pending",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                //authUserWithEmail()
+                                Toast.makeText(requireContext(), "Verification Pending", Toast.LENGTH_SHORT).show()
+
                                 val email = binding.etAuthEmail.text.toString().trim()
                                 val destination =
                                     SignInFragmentDirections.actionSignInFragmentToUserOtpConfirmation2(email)
                                 findNavController().navigate(destination)
                             } else {
                                 authResponse.data.let { it ->
-                                    viewModel.saveUserLoginDataValue(
-                                        it.id
-                                    )
+                                    viewModel.saveUserLoginDataValue(it.id)
                                     viewModel.saveUserData(
                                         it.id, it.name, it.email, it.mobile, it.provider,
                                         it.city, it?.dob, it.gender.toString(),

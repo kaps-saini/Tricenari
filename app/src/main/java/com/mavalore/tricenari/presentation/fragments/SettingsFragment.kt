@@ -72,49 +72,19 @@ class SettingsFragment : Fragment() {
     }
 
     private fun handleLogout() {
-        Const.fireBaseAuth().signOut()
-        viewModel.saveUserLoginStatus(false)
-//        if (checkInternetConnection.hasInternetConnection(requireContext())){
-        if (Const.fireBaseAuth().currentUser == null) {
-//                val intent = Intent(requireActivity(), MainActivity::class.java)
-//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                startActivity(intent)
-
+        if (checkInternetConnection.hasInternetConnection(requireContext())){
+            Const.fireBaseAuth().signOut()
+            viewModel.saveUserLoginStatus(false)
             findNavController().navigate(R.id.action_settingsFragment_to_signInFragment)
-
+        }else{
+           alertDialogBox.showNoInternetDialog(requireContext())
         }
-//        }else{
-//            showNoInternetDialog(requireContext())
-//        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
         _binding = null
-    }
-
-    private fun showNoInternetDialog(context: Context) {
-        val alertDialogBuilder = AlertDialog.Builder(context)
-        alertDialogBuilder.setTitle("No Internet Connection")
-        alertDialogBuilder.setMessage("Please check your internet connection and try again.")
-        alertDialogBuilder.setCancelable(false)
-
-        alertDialogBuilder.setPositiveButton("Retry") { dialog, _ ->
-            // Perform the retry action here
-            // You can add your retry logic here
-            handleLogout()
-            dialog.dismiss()
-
-        }
-
-        alertDialogBuilder.setNegativeButton("Cancel") { dialog, _ ->
-            dialog.dismiss()
-            // Close the app or take appropriate action on cancel
-        }
-
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
     }
 
     private fun showLogoutDialog() {

@@ -237,7 +237,7 @@ class ContactUs : Fragment() {
             binding.tilMessage.helperText = ""
         }
 
-        // If all fields are valid, perform action
+        // If all fields are valid then perform action
         if (isValid) {
             val param = viewModel.generateEncodedParamsToAddUser(
                 userId.toString(),userName,email,mobileNo,message,null)
